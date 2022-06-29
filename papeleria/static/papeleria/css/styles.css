@@ -1,0 +1,277 @@
+/* ----------------------------------------
+  General
+*/
+
+a {
+  color: #078930;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #04521d;
+  text-decoration: none;
+}
+
+body {
+padding: 0px 0px;
+background: rgb(6,87,32);
+background: linear-gradient(180deg, rgba(6,87,32,1) 0%, rgba(7,137,48,1) 7%, rgba(7,137,48,1) 93%, rgba(6,87,32,1) 100%); 
+}
+
+h1 {
+color: #fcdd09;
+font-weight: bold;
+margin: 0 0 10px 0;
+}
+
+h2 {
+  color: #fcdd09;
+  font-weight: bold;
+  margin: 0 0 7px 0;
+}
+
+h3 {
+  color: #fcdd09;
+  margin: 0 0 7px 0;
+}
+
+hr {
+margin-top: 10px;
+margin-bottom: 10px;
+background-color: #fcdd09;
+}
+
+.centered-content {
+display: flex;
+justify-content: center;
+}
+
+.common-text {
+  color: white;
+  font-size: 14px;
+}
+
+.common-button {
+color: white;
+background: #05571f;
+border: none;
+border-radius: 4px;
+padding: 6px 8px;
+margin: 0 0;
+}
+
+.common-button:hover {
+color: #fcdd09;
+}
+
+input {
+flex-grow: 1;
+border: 0px;
+border-radius: 4px;
+padding: 4px 4px;
+color: #078930;
+}
+
+#asd {
+color: white;
+background: #CC0000;
+background: #006600;
+border-radius: 4px;
+padding: 4px 4px;
+}
+
+.field {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  background: #fcdd09;
+  color: #078930;
+  border-radius: 6px;
+  padding: 6px 6px;
+  margin: 0px 0px;
+}
+
+.grid-element {
+margin: 5px 0px;
+}
+
+.path-text {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.input-field {
+background: #fcdd09;
+color: #078930;
+border-radius: 6px;
+padding: 6px 6px;
+margin: 5px 0px;
+display: flex;
+}
+
+#main-container {
+padding: 12px 10px;
+}
+
+.background-color1 {
+  background-color: #fcdd09;
+}
+
+p {
+margin: 0 0;
+}
+
+.message {
+display: none;
+font-weight: bold;
+}
+
+.rounded-container {
+border-radius: 10px;
+background: white;
+}
+
+.unspaced-form-row {
+display: -ms-flexbox;
+display: flex;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+margin-right: 0px;
+margin-left: 0px;
+}
+
+.unspaced-form-row > .col,
+.unspaced-form-row > [class*="col-"] {
+padding: 10px 10px;
+}
+
+.vertically-centered {
+display: flex;
+align-items: center;
+}
+
+
+/* ----------------------------------------
+Spaces
+*/
+
+.botton-space-s {
+margin-bottom: 5px;
+}
+
+.botton-space-m {
+margin-bottom: 10px;
+}
+
+/* ----------------------------------------
+Menu
+*/
+
+/* The "a" selector doesn't apply to sub menu-options, thus that info is re-included here. */
+.menu-option {
+  color: #078930;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.menu-option:hover {
+  color: #04521d;
+  text-decoration: none;
+}
+
+.custom-toggler .navbar-toggler-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23078930' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+border-color: #078930;
+}
+
+.navbar-brand{
+padding: 0 0;
+}
+
+
+/* ----------------------------------------
+Add
+*/
+.feature-field {
+background: #fcdd09;
+color: #078930;
+border-radius: 6px;
+padding: 6px 6px;
+margin: 5px 0px;
+}
+
+.feature-input {
+flex-grow: 1;
+border: 0px;
+border-radius: 4px;
+padding: 4px 4px;
+}
+
+/* ----------------------------------------
+General Delete me
+*/
+
+ul {
+padding-left: 14px;
+margin: 0 0;
+}
+
+html {
+min-height: 100%;
+}
+
+#main-hr {
+margin: 0 0;
+}
+
+
+.bordered-section {
+border-style: solid;
+border-width: thin;
+border-color:#cccccc;
+background: white;
+}
+
+.form-row-header {
+padding: 10px 10px;
+}
+
+.form-row-row {
+border: 1px solid black;
+padding: 10px 10px;
+}
+
+.form-row-separator {
+margin-top: 30px;
+margin-bottom: 12px;
+}
+
+.spaced {
+margin: 0 5px 5px 0;
+}
+
+.title {
+color: #002255;
+font-weight: bold;
+margin-bottom: 0px
+}
+
+.vertically-spaced {
+margin-top: 5px;
+}
+
+.wrapped-container {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+position: relative;
+}
+
+.warning {
+display: none;
+font-weight: bold;
+}
