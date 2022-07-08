@@ -1,0 +1,12 @@
+{% extends "general/layout.html" %}
+
+{% block body %}
+    <div>
+        <h1>Adicionar Producto</h1>
+        <form action="add_product" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{ newProductForm.as_p }}
+            <button type="submit" class="common-button">Adicionar</button>
+        </form>
+    </div>
+{% endblock %}

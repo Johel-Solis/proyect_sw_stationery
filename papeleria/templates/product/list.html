@@ -1,0 +1,21 @@
+{% extends "general/layout.html" %}
+
+{% block body %}
+    <div>
+        <h1>Productos</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <b><p>Referencia | Nombre | Existencias | Precio compra | Precio venta</p></b>
+        
+        {% for product in products %}
+            {{ product.reference }} {{ product.name }} {{ product.stock }} {{ product.purchase_price }} {{ product.sale_price }}
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
