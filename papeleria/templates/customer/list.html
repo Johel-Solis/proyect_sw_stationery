@@ -2,7 +2,7 @@
 
 {% block body %}
     <div>
-        <h1>Productos</h1>
+        <h1>Clientes</h1>
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -11,10 +11,10 @@
         </ul>
         {% endif %}
 
-        <b><p>Referencia | Nombre | Existencias | Marca | Precio compra | Precio venta | Descripción</p></b>
+        <b><p>ID | Nombre</p></b>
         
-        {% for product in products %}
-            {{ product.reference }} {{ product.name }} {{ product.stock }} {{ product.brand }} {{ product.purchase_price }} {{ product.sale_price }} {{ product.description }}
+        {% for customer in customers %}
+            {{ customer.id }} {{ customer.name }}
             <br>
         {% endfor %}
     </div>

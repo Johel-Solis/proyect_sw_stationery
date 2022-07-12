@@ -7,7 +7,7 @@ class User(AbstractUser):
 
 class Person(models.Model):
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", on_delete=models.CASCADE, default=None, blank=True, null=True)
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     email = models.CharField(max_length=50, default=None, blank=True, null=True)
@@ -18,8 +18,10 @@ class Product(models.Model):
     reference = models.IntegerField(unique=True)
     name = models.CharField(max_length=50)
     stock = models.IntegerField()
+    brand = models.CharField(max_length=50)
     purchase_price = models.FloatField()
     sale_price = models.FloatField()
+    description = models.CharField(max_length=60, default=None, blank=True, null=True)
 
 class Bill(models.Model):
     seller = models.ForeignKey("User", on_delete=models.CASCADE)

@@ -2,10 +2,9 @@
 
 {% block body %}
     <div>
-        <h1>Adicionar Vendedor</h1>
-        <form action="add_seller" method="POST" enctype="multipart/form-data">
+        <h1>Adicionar Cliente</h1>
+        <form action="add_customer" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-                {{ newUserForm.as_p }}
                 {{ newPersonForm.as_p }}
             <button type="submit" class="common-button">Adicionar</button>
         </form>

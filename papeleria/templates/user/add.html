@@ -1,0 +1,47 @@
+{% extends "general/layout.html" %}
+
+{% block body %}
+    <div>
+        <h1>Adicionar Usuario</h1>
+        <form action="add_user" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{ newUserForm.as_p }}
+                {{ newPersonForm.as_p }}
+            <button id="form-button" disabled type="submit" class="common-button-disabled">Adicionar</button>
+        </form>
+        <p id="roles-validation-message">Por favor seleccione por lo menos un rol (Admin/Vendedor)</p>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = function() {
+        manageCheckboxes();
+    };
+
+    function manageCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+        var formButton = document.getElementById("form-button");
+        var rolesValidationMessage = document.getElementById("roles-validation-message");
+
+        if(checkedOne) {
+            formButton.disabled = false;
+            formButton.className = "common-button";
+            rolesValidationMessage.style = "display: none";
+        } else {
+            formButton.disabled = true;
+            formButton.className = "common-button-disabled";
+            rolesValidationMessage.style = "display: block";
+        }
+    }
+
+    document.getElementById("id_is_admin").onchange = function() {
+        manageCheckboxes();
+    };
+
+    document.getElementById("id_is_seller").onchange = function() {
+        manageCheckboxes();
+    };
+</script>
+{% endblock %}
