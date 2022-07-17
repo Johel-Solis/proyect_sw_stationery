@@ -1,5 +1,5 @@
 from django import forms
-from .models import Person, Product, User
+from .models import Customer, Person, Product, User
 
 class NewProductForm(forms.ModelForm):
     class Meta:
@@ -18,12 +18,12 @@ class NewProductForm(forms.ModelForm):
 class NewUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'password', 'is_admin', 'is_seller')
+        fields = ('username', 'password', 'user_type')
         labels = {
             "username": "Nombre usuario",
             "password": "Clave",
-            "is_admin": "Es administrador",
-            "is_seller": "Es vendedor"
+            "user_type": "Es administrador, o vendedor",
+            
         }
 
 class NewPersonForm(forms.ModelForm):
@@ -37,4 +37,15 @@ class NewPersonForm(forms.ModelForm):
             "email": "Correo",
             "phone": "Teléfono",
             "birthday": "Fecha nacimiento"
+        }
+
+class NewCustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ('id', 'name', 'phone', 'email')
+        labels = {
+            "id":  "Cedula o Nit",
+            "name": "Nombre",
+            "phone": "Teléfono",
+            "email": "Correo"
         }

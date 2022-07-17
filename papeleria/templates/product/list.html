@@ -11,10 +11,10 @@
         </ul>
         {% endif %}
 
-        <b><p>Referencia | Nombre | Existencias | Marca | Precio compra | Precio venta | Descripción</p></b>
+        <b><p>Referencia | Nombre | Existencias | Precio compra | Precio venta</p></b>
         
         {% for product in products %}
-            {{ product.reference }} {{ product.name }} {{ product.stock }} {{ product.brand }} {{ product.purchase_price }} {{ product.sale_price }} {{ product.description }}
+            {{ product.reference }} {{ product.name }} {{ product.stock }} {{ product.purchase_price }} {{ product.sale_price }}
             <br>
         {% endfor %}
     </div>

@@ -9,8 +9,8 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
 
-from .models import Bill, Person, Product, SaleDetail, User
-from .forms import NewPersonForm, NewProductForm, NewUserForm
+from .models import Bill, Customer, Person, Product, SaleDetail, User
+from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 # TODO:
 # Make sure that at least one checkbox is selected
@@ -20,30 +20,25 @@ from .forms import NewPersonForm, NewProductForm, NewUserForm
 def add_customer(request):
     if request.method == "POST":
         try:
-            newPersonForm = NewPersonForm(request.POST)
+            newCustomerForm = NewCustomerForm(request.POST)
             
-            if newPersonForm.is_valid():
+            if newCustomerForm.is_valid():
                 identification = request.POST["id"]
                 name = request.POST["name"]
-                surname= request.POST["surname"]
                 email = None if request.POST["email"] == "" else request.POST["email"]
                 phone = None if request.POST["phone"] == "" else request.POST["phone"]
-                birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
 
-                person = Person(
-                    user=None,
+                customer = Customer(
                     id=identification,
                     name=name,
-                    surname=surname,
                     email=email,
-                    phone=phone,
-                    birthday=birthday)
+                    phone=phone)
                 
-                person.save()
+                customer.save()
                 messages.success(request, 'El cliente se creó exitosamente')
             else:
                 return render(request, "customer/add.html", {
-                    "newPersonForm": newPersonForm
+                    "newCustomerSForm": newCustomerForm
                 })
         except Exception as e:
             print(e)
@@ -57,7 +52,7 @@ def add_customer(request):
 @login_required
 def add_customer_view(request):
     return render(request, "customer/add.html", {
-        "newPersonForm": NewPersonForm()
+        "newCustomerForm": NewCustomerForm()
     })
 
 @csrf_exempt
@@ -175,7 +170,7 @@ def index(request):
 @csrf_exempt
 @login_required
 def list_customers(request):
-    customers = Person.objects.all().filter(user=None)
+    customers = Customer.objects.all()
 
     return render(request, "customer/list.html", {
         "customers": customers
@@ -193,7 +188,7 @@ def list_products(request):
 @csrf_exempt
 @login_required
 def list_sellers(request):
-    sellers = User.objects.all().filter(is_seller=True)
+    sellers = User.objects.all().filter(user_type="seller")
     
     return render(request, "seller/list.html", {
         "sellers": sellers
@@ -222,6 +217,7 @@ def login_view(request):
 
             return HttpResponseRedirect(reverse("index"))
         else:
+            messages.error(request, "Usuario o contraseña invalido.")
             return render(request, "general/login.html", {
                 "message": "Invalid username and/or password."
             })

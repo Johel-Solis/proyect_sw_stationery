@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    is_admin = models.BooleanField(default=False)
-    is_seller = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=10, default="seller")
+    
 
 class Person(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -14,6 +14,13 @@ class Person(models.Model):
     phone = models.IntegerField(default=None, blank=True, null=True)
     birthday = models.DateTimeField(default=None, blank=True, null=True)
 
+class Customer(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=50)
+    phone = models.IntegerField(default=None, blank=True, null=True)
+    email = models.CharField(max_length=50, default=None, blank=True, null=True)
+    
+    
 class Product(models.Model):
     reference = models.IntegerField(unique=True)
     name = models.CharField(max_length=50)
@@ -25,7 +32,7 @@ class Product(models.Model):
 
 class Bill(models.Model):
     seller = models.ForeignKey("User", on_delete=models.CASCADE)
-    customer = models.ForeignKey("Person", on_delete=models.CASCADE)
+    customer = models.ForeignKey("Customer", on_delete=models.CASCADE)
     total = models.FloatField()
     date = models.DateTimeField()
 
