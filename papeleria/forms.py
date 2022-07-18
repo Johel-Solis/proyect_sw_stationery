@@ -18,11 +18,10 @@ class NewProductForm(forms.ModelForm):
 class NewUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'password', 'user_type')
+        fields = ('username', 'password')
         labels = {
             "username": "Nombre usuario",
-            "password": "Clave",
-            "user_type": "Es administrador, o vendedor",
+            "password": "Clave"
             
         }
 

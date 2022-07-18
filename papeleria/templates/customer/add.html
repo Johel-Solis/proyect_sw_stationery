@@ -30,22 +30,40 @@
                     </div>
                     <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
                         <div class="col-md-8 offset-md-1">
-                            <p style="font-family: Roboto, sans-serif;font-size: 24px;"
-                                class="ml-0"><strong>Cedula o Nit:</strong></p>
+                            {% if newCustomerForm.id.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>El cliente con esta cedula ya existe.</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <p style="font-family: Roboto, sans-serif;font-size: 24px;" class="ml-0"><strong>Cedula o
+                                    Nit:</strong></p>
+
                         </div>
                         <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
-                            <input class="form-control" type="number"
-                                style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id"
-                                placeholder="Cedula o Nit" required="" minlength="0"></div>
+                            {% if newCustomerForm.id.errors %} 
+                            <input type="text" class="form-control is-invalid" id="id" name="id"
+                                    value="{{ newCustomerForm.id.value }}" placeholder="Cedula o Nit" required="" minlength="0">
+                            {% else %}
+                            <input class="form-control" type="number"style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id" id="id" placeholder="Cedula o Nit" required="" minlength="0">
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="form-row" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
                         <div class="col-md-8 col-lg-2 col-xl-2 offset-md-1">
                             <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 1px;"
                                 class="pr-0"><strong>Nombre:</strong></p>
                         </div>
-                        <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control pr-0" type="text"
-                                style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name"
-                                placeholder="Nombre" required=""></div>
+                        <div class="col-md-10 col-lg-9 offset-md-1">
+                            {% if newCustomerForm.id.errors %}
+                            <input type="text" class="form-control" id="name" name="name"
+                                    value="{{ newCustomerForm.name.value }}" placeholder="Nombre" required="">
+                            {% else %}
+                            <input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name" id="name" placeholder="Nombre" required="">
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 1px;">
 
@@ -53,18 +71,28 @@
                             <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 0px;"
                                 class="ml-0"><strong>Telefono:</strong></p>
                         </div>
-                        <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="number"
-                                style="margin-left: 0px;font-family: Roboto, sans-serif;" name="phone"
-                                placeholder="Telefono" required="" minlength="0"></div>
+                        <div class="col-md-10 col-lg-9 offset-md-1">
+                            {% if newCustomerForm.id.errors %}
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                    value="{{ newCustomerForm.phone.value }}" placeholder="Telefono" required="">
+                            {% else %} 
+                            <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="phone" id="phone" placeholder="Telefono" >
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
                         <div class="col-md-8 offset-md-1">
                             <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;"
                                 class="ml-0"><strong>Correo&nbsp;electrónico:</strong></p>
                         </div>
-                        <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="email"
-                                style="margin-left: 0px;font-family: Roboto, sans-serif;" name="email"
-                                placeholder="Correo electrónico"></div>
+                        <div class="col-md-10 col-lg-9 offset-md-1">
+                            {% if newCustomerForm.id.errors %}
+                            <input type="text" class="form-control" id="email" name="email"
+                                    value="{{ newCustomerForm.email.value }}" placeholder="Correo electrónico" >
+                            {% else %}
+                            <input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="email" id="email" placeholder="Correo electrónico" >
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="form-row justify-content-end"
                         style="margin-right:0px;margin-left:0px;padding-top:24px;">
@@ -72,7 +100,8 @@
                             class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto">
                             <button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;"
                                 type="reset">cancelar</button><button class="btn btn-light btn-lg"
-                                style="margin-left: 14px;" type="submit">Adicionar</button></div>
+                                style="margin-left: 14px;" type="submit">Adicionar</button>
+                        </div>
                     </div>
                 </div>
             </div>
