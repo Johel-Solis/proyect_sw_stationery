@@ -15,19 +15,6 @@ class NewProductForm(forms.ModelForm):
             "description": "Descripción"
         }
 
-class EditProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ('name', 'stock', 'brand', 'purchase_price', 'sale_price', 'description')
-        labels = {
-            "name": "Nombre",
-            "stock": "Existencias",
-            "brand": "Marca",
-            "purchase_price": "Precio compra",
-            "sale_price": "Precio venta",
-            "description": "Descripción"
-        }
-
 class NewUserForm(forms.ModelForm):
     class Meta:
         model = User
