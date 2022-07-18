@@ -220,6 +220,110 @@ def add_seller_view(request):
 
 @csrf_exempt
 @login_required
+def edit_admin(request, userId):
+    if request.method == "POST":
+        try:
+            user = User.objects.get(id=userId)
+            person = Person.objects.get(user=user)
+            newUserForm = NewUserForm(request.POST, instance=user)
+            newPersonForm = NewPersonForm(request.POST, instance=person)
+            
+            if newUserForm.is_valid() and newPersonForm.is_valid():
+                username = request.POST["username"]
+                password = request.POST["password"]
+                identification = request.POST["id"]
+                name = request.POST["name"]
+                surname= request.POST["surname"]
+                email = None if request.POST["email"] == "" else request.POST["email"]
+                phone = None if request.POST["phone"] == "" else request.POST["phone"]
+                birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
+
+                user.username=username,
+                user.password=password,
+                user.user_type="admin"
+                user.save()
+
+                person.id=identification,
+                person.name=name,
+                person.surname=surname,
+                person.email=email,
+                person.phone=phone,
+                person.birthday=birthday
+                person.save()
+
+                messages.success(request, 'El administrador se editó exitosamente')
+            else:
+                return render(request, "admin/edit.html", {
+                    "editUserForm": newUserForm,
+                    "editPersonForm": newPersonForm
+                })
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Se produjo un error. El administrador no pudo ser editado')
+    else:
+        messages.error(request, 'La petición no es válida. El administrador no pudo ser editado')
+    
+    return redirect("list-admins")
+
+@csrf_exempt
+@login_required
+def edit_admin_view(request, userId):
+    user = User.objects.get(id=userId)
+    person = Person.objects.get(user=user)
+    newUserForm = NewUserForm(instance=user)
+    newPersonForm = NewPersonForm(instance=person)
+
+    return render(request, "admin/edit.html", {
+        "editUserForm": newUserForm,
+        "editPersonForm": newPersonForm
+    })
+
+@csrf_exempt
+@login_required
+def edit_customer(request, id):
+    if request.method == "POST":
+        try:
+            customer = Customer.objects.get(id=id)
+            newCustomerForm = newCustomerForm(request.POST, instance=customer)
+
+            if newCustomerForm.is_valid():
+                identification = request.POST["id"]
+                name = request.POST["name"]
+                email = None if request.POST["email"] == "" else request.POST["email"]
+                phone = None if request.POST["phone"] == "" else request.POST["phone"]
+
+                customer.id=identification,
+                customer.name=name,
+                customer.email=email,
+                customer.phone=phone
+                customer.save()
+
+                messages.success(request, 'El cliente se editó exitosamente')
+            else:
+                return render(request, "customer/edit.html", {
+                    "editCustomerForm": newCustomerForm,
+                    "editCustomerForm": newCustomerForm
+                })
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Se produjo un error. El cliente no pudo ser editado')
+    else:
+        messages.error(request, 'La petición no es válida. El cliente no pudo ser editado')
+    
+    return redirect("list-customers")
+
+@csrf_exempt
+@login_required
+def edit_customer_view(request, id):
+    customer = Customer.objects.get(id=id)
+    newCustomerForm = newCustomerForm(instance=customer)
+
+    return render(request, "customer/edit.html", {
+        "editCustomerForm": newCustomerForm
+    })
+
+@csrf_exempt
+@login_required
 def edit_product(request, reference):
     if request.method == "POST":
         try:
@@ -235,19 +339,18 @@ def edit_product(request, reference):
                 salePrice = request.POST["sale_price"]
                 description = request.POST["description"]
 
-                if product:
-                    product.reference=reference
-                    product.name=name
-                    product.stock=stock
-                    product.brand=brand
-                    product.purchase_price=purchasePrice
-                    product.sale_price=salePrice
-                    product.description=description
-                    product.save()
+                product.reference=reference
+                product.name=name
+                product.stock=stock
+                product.brand=brand
+                product.purchase_price=purchasePrice
+                product.sale_price=salePrice
+                product.description=description
+                product.save()
 
-                    messages.success(request, 'El producto se editó exitosamente')
+                messages.success(request, 'El producto se editó exitosamente')
             else:
-                return render(request, "product/new.html", {
+                return render(request, "product/edit.html", {
                     "newProductForm": newProductForm
                 })
         except Exception as e:

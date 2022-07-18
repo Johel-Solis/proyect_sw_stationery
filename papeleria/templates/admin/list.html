@@ -57,7 +57,7 @@
                                     {% for admin in admins %}
                                     <tr><td>{{ admin.id }}</td>
                                         <td>{{ admin.username }}</td>
-                                        <td><a class="btn btn-secondary"href="/edit_admin_view/{{admim.id}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"  onclick='deleteObject ("/delete_admin/","{{admin.id}}")'><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="btn btn-secondary"href="/edit_admin_view/{{admin.id}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"  onclick='deleteObject ("/delete_admin/","{{admin.id}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     
