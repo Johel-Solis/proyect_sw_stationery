@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 from .models import Bill, Customer, Person, Product, SaleDetail, User
-from .forms import EditProductForm, NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
+from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 # TODO:
 # Nothing
@@ -223,16 +223,17 @@ def add_seller_view(request):
 def edit_product(request, reference):
     if request.method == "POST":
         try:
-            editProductForm = EditProductForm(request.POST)
+            product = Product.objects.get(reference=reference)
+            newProductForm = newProductForm(request.POST, instance=product)
 
-            if editProductForm.is_valid():
+            if newProductForm.is_valid():
+                reference = request.POST["reference"]
                 name = request.POST["name"]
                 stock = request.POST["stock"]
                 brand = request.POST["brand"]
                 purchasePrice = request.POST["purchase_price"]
                 salePrice = request.POST["sale_price"]
                 description = request.POST["description"]
-                product = Product.objects.get(reference=reference)
 
                 if product:
                     product.reference=reference
@@ -246,8 +247,8 @@ def edit_product(request, reference):
 
                     messages.success(request, 'El producto se editó exitosamente')
             else:
-                return render(request, "product/add.html", {
-                    "editProductForm": editProductForm
+                return render(request, "product/new.html", {
+                    "newProductForm": newProductForm
                 })
         except Exception as e:
             print(e)
