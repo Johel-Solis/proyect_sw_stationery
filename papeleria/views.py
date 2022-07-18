@@ -5,6 +5,8 @@ from django.db import IntegrityError
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
+import json
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -169,7 +171,6 @@ def add_seller(request):
             if newUserForm.is_valid() and newPersonForm.is_valid():
                 username = request.POST["username"]
                 password = request.POST["password"]
-                user_type = "vendedor"
                 identification = request.POST["id"]
                 name = request.POST["name"]
                 surname= request.POST["surname"]
@@ -180,7 +181,7 @@ def add_seller(request):
                 user =  User.objects.create_user(
                     username=username,
                     password=password,
-                    user_type=user_type
+                    user_type="vendedor"
                 )
                 user.save()
 
@@ -216,6 +217,79 @@ def add_seller_view(request):
         "newUserForm": NewUserForm(),
         "newPersonForm": NewPersonForm()
     })
+
+@csrf_exempt
+@login_required
+def delete_admin(request, id):
+    if request.method == "DELETE":
+        try:
+            admin = User.objects.filter(id=id)
+
+            if admin:
+                admin.delete()
+                return JsonResponse({"message": "Administrador eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El administrador no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Administrador no eliminado"}, status=201)
+
+@csrf_exempt
+@login_required
+def delete_customer(request, id):
+    if request.method == "DELETE":
+        try:
+            customer = Customer.objects.filter(id=id)
+
+            if customer:
+                customer.delete()
+                return JsonResponse({"message": "Cliente eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El cliente no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Cliente no eliminado"}, status=201)
+
+@csrf_exempt
+@login_required
+def delete_product(request, reference):
+    if request.method == "DELETE":
+        try:
+            product = Product.objects.filter(reference=reference)
+
+            if product:
+                product.delete()
+                return JsonResponse({"message": "Producto eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El producto no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Producto no eliminado"}, status=201)
+
+
+@csrf_exempt
+@login_required
+def delete_seller(request, id):
+    if request.method == "DELETE":
+        try:
+            seller = User.objects.filter(id=id)
+
+            if seller:
+                seller.delete()
+                return JsonResponse({"message": "Vendedor eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El vendedor no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Vendedor no eliminado"}, status=201)
 
 def index(request):
     if request.user.is_authenticated:
