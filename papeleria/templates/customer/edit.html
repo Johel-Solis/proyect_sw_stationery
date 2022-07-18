@@ -19,7 +19,7 @@
 
 <div class="container">
     <div>
-        <form action="edit_customer" method="POST" enctype="multipart/form-data" class="mt-5" style="padding-top: 5px;">
+        <form action="/edit_customer/{{editCustomerForm.id.value}}" method="POST" enctype="multipart/form-data" class="mt-5" style="padding-top: 5px;">
             {% csrf_token %}
             <div class="form-group ml-5 mt-5 pb-0" style="margin-top: 25px;">
                 <div id="formdiv" style="background: #ffffff;" class="mr-5 ml-5">

@@ -262,7 +262,7 @@ def edit_product(request, reference):
 @login_required
 def edit_product_view(request, reference):
     product = Product.objects.get(reference=reference)
-    editProductForm = EditProductForm(instance=product)
+    editProductForm = NewProductForm(instance=product)
 
     return render(request, "product/edit.html", {
         "editProductForm": editProductForm
