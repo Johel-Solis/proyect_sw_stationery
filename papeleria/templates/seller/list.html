@@ -32,6 +32,7 @@
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="{% static 'papeleria/ListSeller/js/DataTable---Fully-BSS-Editable.js' %}"></script>
+    <script src="{% static 'papeleria/js/delete.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -57,7 +58,7 @@
                                     {% for seller in sellers %}
                                     <tr><td>{{ seller.id }}</td>
                                         <td>{{ seller.username }}</td>
-                                        <td><a class="btn btn-secondary" type="button" href="delete_seller/{{seller.id}}"  onclick="return confirm('¿Esta seguro?')"><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="btn btn-secondary" type="button"  onclick='deleteObject ("/delete_seller/","{{seller.id}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     
