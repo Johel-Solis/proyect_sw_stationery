@@ -13,7 +13,7 @@ from .models import Bill, Customer, Person, Product, SaleDetail, User
 from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 # TODO:
-# Make sure that at least one checkbox is selected
+# Nothing
 
 @csrf_exempt
 @login_required
