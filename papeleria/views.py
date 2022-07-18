@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 from .models import Bill, Customer, Person, Product, SaleDetail, User
-from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
+from .forms import EditProductForm, NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 # TODO:
 # Nothing
@@ -98,7 +98,7 @@ def add_customer(request):
                 messages.success(request, 'El cliente se creó exitosamente')
             else:
                 return render(request, "customer/add.html", {
-                    "newCustomerForm": newCustomerForm
+                    "newCustomerSForm": newCustomerForm
                 })
         except Exception as e:
             print(e)
@@ -121,7 +121,7 @@ def add_product(request):
     if request.method == "POST":
         try:
             newProductForm = NewProductForm(request.POST)
-
+            
             if newProductForm.is_valid():
                 reference = request.POST["reference"]
                 name = request.POST["name"]
@@ -216,6 +216,55 @@ def add_seller_view(request):
     return render(request, "seller/add.html", {
         "newUserForm": NewUserForm(),
         "newPersonForm": NewPersonForm()
+    })
+
+@csrf_exempt
+@login_required
+def edit_product(request, reference):
+    if request.method == "POST":
+        try:
+            editProductForm = EditProductForm(request.POST)
+
+            if editProductForm.is_valid():
+                name = request.POST["name"]
+                stock = request.POST["stock"]
+                brand = request.POST["brand"]
+                purchasePrice = request.POST["purchase_price"]
+                salePrice = request.POST["sale_price"]
+                description = request.POST["description"]
+                product = Product.objects.get(reference=reference)
+
+                if product:
+                    product.reference=reference
+                    product.name=name
+                    product.stock=stock
+                    product.brand=brand
+                    product.purchase_price=purchasePrice
+                    product.sale_price=salePrice
+                    product.description=description
+                    product.save()
+
+                    messages.success(request, 'El producto se editó exitosamente')
+            else:
+                return render(request, "product/add.html", {
+                    "editProductForm": editProductForm
+                })
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Se produjo un error. El producto no pudo ser editado')
+    else:
+        messages.error(request, 'La petición no es válida. El producto no pudo ser editado')
+    
+    return redirect("list-products")
+
+@csrf_exempt
+@login_required
+def edit_product_view(request, reference):
+    product = Product.objects.get(reference=reference)
+    editProductForm = EditProductForm(instance=product)
+
+    return render(request, "product/edit.html", {
+        "editProductForm": editProductForm
     })
 
 @csrf_exempt
