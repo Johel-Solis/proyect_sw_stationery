@@ -96,3 +96,82 @@
         </div>    
     </div>
 
+=======
+<div>
+    <form action="add_seller" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group" style="margin-top: 25px;">
+            <div id="formdiv" style="background: #ffffff;width: 808px;height: 814.5px;" class="mr-5 ml-5">
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                    <div class="col">
+                        <h1 class="text-center" style="font-weight: bold;">Adicionar Vendedor</h1>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                    <div class="col-md-8 col-lg-2 offset-md-1">
+                        <p style="font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;margin-left: 3px;"><strong>Cedula:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1"><input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="id" placeholder="Cedula" required="" minlength="0" maxlength="255"></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
+                    <div class="col-md-8 col-xl-8 offset-md-1" style="height: 37PX;">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Nombres:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control pr-0" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="name" placeholder="Nombre" required="" maxlength="255"></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 1px;">
+                    <div class="col-md-8 col-lg-2 offset-md-1">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 0px;" class="ml-0"><strong>Apellidos:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="surname" placeholder="Apellidos" required="" maxlength="255"></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                    <div class="col-md-8 offset-md-1">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>correo electrónico:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="email" placeholder="Correo "></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                    <div class="col-md-8 offset-md-1">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 1px;" class="ml-0"><strong>teléfono:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1" style="font-family:Roboto, sans-serif;"><input class="form-control" type="number" style="margin-left: 0px;width: 548px;" placeholder="Teléfono" name="phone"></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;margin-top: 0px;">
+                    <div class="col-md-8 col-xl-8 offset-md-1" style="height: 37PX;">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Fecha nacimiento:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="date" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" placeholder="Fecha nacimiento" name="birthday"></div>
+                </div>
+                <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:0px;">
+                    <div class="col-md-10 col-lg-9 offset-md-1">
+                        <h3 class="text-center" style="font-weight: bold;">Usuario</h3>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                    <div class="col-md-8 offset-md-1">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Nombre usuario:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="text" id="username" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="username" placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+"></div>
+                </div>
+                <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                    <div class="col-md-8 offset-md-1">
+                        <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Contraseña:</strong></p>
+                    </div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="password" id="password" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="password" placeholder="Contraseña" required="" maxlength="128"></div>
+                </div>
+                <div style="display:none;">
+                    <input name="is_seller" type="checkbox" value="on" checked>
+                    <input name="is_admin" type="checkbox"  >
+
+                </div>
+                
+                <div class="form-row justify-content-end" style="margin-right:0px;margin-left:0px;padding-top:24px;">
+                    <div class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto"><button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;" type="reset">cancelar</button><button class="btn btn-light btn-lg" style="margin-left: 14px;" type="submit">Adicionar</button></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+>>>>>>> f2e2f9bbc9c2b48b8879aff17c2f149b4f1106ec
