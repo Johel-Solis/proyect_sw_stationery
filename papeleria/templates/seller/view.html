@@ -1,0 +1,124 @@
+{% extends "general/layout.html" %}
+{% load static %}
+{%block link%}
+    <link rel="stylesheet" href="{% static 'papeleria/css/Bootstrap-4---Payment-Form.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Contact-form.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Login-Form-Basic-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/PHP-Contact-Form-dark-contact.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/PHP-Contact-Form-dark.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Responsive-Form-Contact-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Responsive-Form.css' %}">
+{%endblock%}
+
+{%block script%}
+    <script src="{% static 'papeleria/js/Bootstrap-4---Payment-Form.js' %}"></script>
+    <script src="{% static 'papeleria/js/PHP-Contact-Form-dark-1.js' %}"></script>
+    <script src="{% static 'papeleria/js/PHP-Contact-Form-dark.js' %}"></script>
+ {%endblock%}
+{% block body %}
+
+    <div class="container">
+        <div>
+            <form action="add_admin" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top: 25px;">
+                    <div id="formdiv" style="background: #ffffff;" class="mr-5 ml-5">
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                            <div class="col">
+                                <h1 class="text-center" style="font-weight: bold;">Información del  vendedor</h1>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                            {% if newPersonForm.id.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>El Vendedor con esta cedula ya existe.</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-8  offset-md-1">
+                                <p style="font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;margin-left: 3px;"><strong>Cedula:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
+                                
+                                    <input type="number" class="form-control " id="id" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id" value="{{ newPersonForm.id.value }}" placeholder="Cedula" required="" maxlength="255" readonly>
+    
+
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
+                            <div class="col-md-8 col-xl-8 offset-md-1" >
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Nombres:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                            
+                                    <input type="text" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name" value="{{ newPersonForm.name.value }}" placeholder="Nombres" required="" maxlength="255" readonly>
+                              
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 1px;">
+                            <div class="col-md-8 col-lg-2 offset-md-1">
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 0px;" class="ml-0"><strong>Apellidos:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                
+                                    <input type="text" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="surname" value="{{ newPersonForm.surname.value }}" placeholder="Apellidos" required="" maxlength="255" readonly>
+                             </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                            <div class="col-md-8 offset-md-1">
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Correo electrónico:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                
+                                    <input type="email" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="email" value="{{ newPersonForm.email.value }}" placeholder="Correo electrónico" readonly >
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                            <div class="col-md-8 offset-md-1">
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 1px;" class="ml-0"><strong>Teléfono:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1" style="font-family:Roboto, sans-serif;">
+                                    <input type="number" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="phone" value="{{ newPersonForm.phone.value }}" placeholder="Teléfono" >
+                                </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;margin-top: 0px;">
+                            <div class="col-md-8 col-xl-8 offset-md-1" >
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Fecha nacimiento:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                
+                                    <input type="date" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="birthday" value="{{ newPersonForm.birthday.value }}" placeholder="Fecha nacimiento" readonly>
+                                </div>
+                        </div>
+                        <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:0px;">
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                <h3 class="text-center" style="font-weight: bold;">Usuario</h3>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
+                            <div class="col-md-8 offset-md-1">
+                               
+                                <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Nombre usuario:</strong></p>
+                            </div>
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                    <input type="text" class="form-control is-invalid" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="username" id="username" value="{{ newUserForm.username.value }}" placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+" readonly>
+                                </div>
+                        </div>
+                        
+                        <div class="form-row justify-content-end" style="margin-right:0px;margin-left:0px;padding-top:24px;">
+                            <div class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto"><button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;" type="reset">cancelar</button><button class="btn btn-light btn-lg" style="margin-left: 14px;" type="submit">Editar</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>    
+    </div>
+
+=======
+
+{% endblock %}
+
+
+    

@@ -18,18 +18,18 @@
 {% block body %}
     <div class="container">
         <div>
-            <form action="edit_product" method="POST" enctype="multipart/form-data">
+            <form action="add_product" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group" style="margin-top: 25px;">
                     <div id="formdiv" style="background: #ffffff;" class="mr-5 ml-5">
                         <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
                             <div class="col">
-                                <h1 class="text-center" style="font-weight: bold;">Editar producto</h1>
+                                <h1 class="text-center" style="font-weight: bold;">Información del producto</h1>
                             </div>
                         </div>
                         <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
                             <div class="col-md-8 offset-md-1">
-                                {% if editProductForm.reference.errors %}
+                                {% if newProductForm.reference.errors %}
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>El producto con esta Referencia ya existe.</strong>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -41,9 +41,9 @@
 
                             </div>
                             <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
-                                
-                                    <input class="form-control " type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="reference" placeholder="Referencia" required="" minlength="0" value ="{{ editProductForm.reference.value }}" readonly disabled>
                                
+                                    <input class="form-control is-invalid" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="reference" placeholder="Referencia" required="" minlength="0" value ="{{ product.reference }}" readonly>
+                                
                             </div>
 
                         </div> 
@@ -52,9 +52,9 @@
                                 <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 1px;" class="pr-0"><strong>Nombre:</strong></p>
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1">
-
-                                    <input class="form-control pr-0" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name" placeholder="Nombre" required="" value="{{editProductForm.name.value}}">
-                              
+                                
+                                    <input class="form-control pr-0" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name" placeholder="Nombre" required="" value="{{product.name}}" readonly>
+                                
                             </div>
                         </div>
                         <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 1px;">
@@ -62,8 +62,9 @@
                                 <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 0px;" class="ml-0"><strong>Existencias:</strong></p>
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1">
-                                    <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="stock" placeholder="Existencias" required="" minlength="0" value="{{editProductForm.stock.value}}">
-                            
+                               
+                                    <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="stock" placeholder="Existencias" required="" minlength="0" value="{{product.stock}} readonly">
+                               
                                 
                             </div>
                         </div>
@@ -71,9 +72,10 @@
                             <div class="col-md-8 offset-md-1">
                                 <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Marca:</strong></p>
                             </div>
-                            <div class="col-md-10 col-lg-9 offset-md-1">  
-                                    <input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="brand" placeholder="Marca" required="" value="{{editProductForm.brand.value}}">
-                               
+                            <div class="col-md-10 col-lg-9 offset-md-1">
+                                 
+                                    <input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="brand" placeholder="Marca" required="" value="{{product.brand}}" readonly>
+                                
                                 
                             </div>
                         </div>
@@ -82,7 +84,9 @@
                                 <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: 1px;" class="ml-0"><strong>Precio compra:</strong></p>
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1" style="font-family:Roboto, sans-serif;">
-                                    <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="purchase_price" placeholder="Precio compra" required="" minlength="0" value="{{editProductForm.purchase_price.value}}">
+                               
+                                    <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="purchase_price" placeholder="Precio compra" required="" minlength="0" value="{{product.purchase_price}}" readonly>
+                               
                                 
                             </div>
                         </div>
@@ -91,7 +95,10 @@
                                 <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Precio venta:</strong></p>
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1">
-                                  <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="sale_price" placeholder="Precio venta" required="" minlength="0" value="{{editProductForm.sale_price.value}}">
+                                
+                                    <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="sale_price" placeholder="Precio venta" required="" minlength="0" value="{{product.sale_price}}" readonly>
+                               
+                                
                             </div>
                         </div>
                         <div class="form-row" style="margin-right:0px;margin-left:0px;padding-top:0px;">
@@ -99,7 +106,9 @@
                                 <p style="margin-left:2%;font-family:Roboto, sans-serif;font-size:24px;" class="mb-0 ml-0"><strong>Descipción:</strong></p>
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1">
-                                    <textarea class="form-control" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="description" placeholder="Descripción" required="" >{{editProductForm.description.value}}</textarea>
+                                
+                                    <textarea class="form-control" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="description" placeholder="Descripción" required="" readonly>{{product.description}</textarea>
+                                
 
                             </div>
                         </div>
