@@ -224,7 +224,7 @@ def edit_product(request, reference):
     if request.method == "POST":
         try:
             product = Product.objects.get(reference=reference)
-            newProductForm = newProductForm(request.POST, instance=product)
+            newProductForm = NewProductForm(request.POST, instance=product)
 
             if newProductForm.is_valid():
                 reference = request.POST["reference"]
