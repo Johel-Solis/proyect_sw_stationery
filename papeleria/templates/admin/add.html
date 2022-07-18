@@ -1,0 +1,18 @@
+{% extends "general/layout.html" %}
+
+{% block body %}
+    <div>
+        <h1>Adicionar Administrador</h1>
+        <form action="add_admin" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{ newUserForm.as_p }}
+                {{ newPersonForm.as_p }}
+            <button>Adicionar</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+</script>
+{% endblock %}

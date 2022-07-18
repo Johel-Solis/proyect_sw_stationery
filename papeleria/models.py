@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     user_type = models.CharField(max_length=10, default="seller")
     
-
 class Person(models.Model):
     id = models.IntegerField(primary_key=True)
     user = models.ForeignKey("User", on_delete=models.CASCADE, default=None, blank=True, null=True)
@@ -19,7 +18,6 @@ class Customer(models.Model):
     name = models.CharField(max_length=50)
     phone = models.IntegerField(default=None, blank=True, null=True)
     email = models.CharField(max_length=50, default=None, blank=True, null=True)
-    
     
 class Product(models.Model):
     reference = models.IntegerField(unique=True)

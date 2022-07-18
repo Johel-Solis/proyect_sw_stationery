@@ -48,7 +48,7 @@
                     <div class="col-md-8 offset-md-1">
                         <p style="margin-left: 2%;font-family: Roboto, sans-serif;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>correo electrónico:</strong></p>
                     </div>
-                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="brand" placeholder="Correo "></div>
+                    <div class="col-md-10 col-lg-9 offset-md-1"><input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;width: 548px;" name="email" placeholder="Correo "></div>
                 </div>
                 <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
                     <div class="col-md-8 offset-md-1">
@@ -91,15 +91,5 @@
             </div>
         </div>
     </form>
-</div>    
-
-<div>
-        <h1>Adicionar Vendedor</h1>
-        <form action="add_seller" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-                {{ newUserForm.as_p }}
-                {{ newPersonForm.as_p }}
-            <button type="submit" class="common-button">Adicionar</button>
-        </form>
-    </div>
+</div>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block body %}
     <div>
-        <h1>Usuarios</h1>
+        <h1>Administradores</h1>
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -11,15 +11,10 @@
         </ul>
         {% endif %}
 
-        <b><p>ID | Nombre usuario | Tipo Usuario</p></b>
+        <b><p>ID | Nombre usuario</p></b>
         
-        {% for user in users %}
-            {{ user.id }} {{ user.username }}
-            {% if user.is_admin %}
-                Admin
-            {% else %}
-                Vendedor
-            {% endif %}
+        {% for admin in admins %}
+            {{ admin.id }} {{ admin.username }}
             <br>
         {% endfor %}
     </div>

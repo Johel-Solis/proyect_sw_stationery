@@ -17,6 +17,64 @@ from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 @csrf_exempt
 @login_required
+def add_admin(request):
+    if request.method == "POST":
+        try:
+            newUserForm = NewUserForm(request.POST)
+            newPersonForm = NewPersonForm(request.POST)
+            
+            if newUserForm.is_valid() and newPersonForm.is_valid():
+                username = request.POST["username"]
+                password = request.POST["password"]
+                identification = request.POST["id"]
+                name = request.POST["name"]
+                surname= request.POST["surname"]
+                email = None if request.POST["email"] == "" else request.POST["email"]
+                phone = None if request.POST["phone"] == "" else request.POST["phone"]
+                birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
+
+                user =  User.objects.create_user(
+                    username=username,
+                    password=password,
+                    user_type="admin"
+                )
+                user.save()
+
+                person = Person(
+                    user=user,
+                    id=identification,
+                    name=name,
+                    surname=surname,
+                    email=email,
+                    phone=phone,
+                    birthday=birthday
+                )
+                person.save()
+                messages.success(request, 'El administrador se creó exitosamente')
+            else:
+                return render(request, "admin/add.html", {
+                    "newUserForm": newUserForm,
+                    "newPersonForm": newPersonForm
+                })
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+            messages.error(request, 'Se produjo un error. El administrador no pudo ser creado')
+    else:
+        messages.error(request, 'La petición no es válida. El administrador no pudo ser creado')
+    
+    return redirect("list-admins")
+
+@csrf_exempt
+@login_required
+def add_admin_view(request):
+    return render(request, "admin/add.html", {
+        "newUserForm": NewUserForm(),
+        "newPersonForm": NewPersonForm()
+    })
+
+@csrf_exempt
+@login_required
 def add_customer(request):
     if request.method == "POST":
         try:
@@ -102,7 +160,7 @@ def add_product_view(request):
 
 @csrf_exempt
 @login_required
-def add_user(request):
+def add_seller(request):
     if request.method == "POST":
         try:
             newUserForm = NewUserForm(request.POST)
@@ -111,8 +169,7 @@ def add_user(request):
             if newUserForm.is_valid() and newPersonForm.is_valid():
                 username = request.POST["username"]
                 password = request.POST["password"]
-                is_admin = True if "is_admin" in request.POST else False
-                is_seller = True if "is_seller" in request.POST else False
+                user_type = "vendedor"
                 identification = request.POST["id"]
                 name = request.POST["name"]
                 surname= request.POST["surname"]
@@ -120,12 +177,11 @@ def add_user(request):
                 phone = None if request.POST["phone"] == "" else request.POST["phone"]
                 birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
 
-                user = User(
+                user =  User.objects.create_user(
                     username=username,
                     password=password,
-                    is_admin=is_admin,
-                    is_seller=is_seller)
-                
+                    user_type=user_type
+                )
                 user.save()
 
                 person = Person(
@@ -135,12 +191,12 @@ def add_user(request):
                     surname=surname,
                     email=email,
                     phone=phone,
-                    birthday=birthday)
-                
+                    birthday=birthday
+                )
                 person.save()
                 messages.success(request, 'El vendedor se creó exitosamente')
             else:
-                return render(request, "user/add.html", {
+                return render(request, "seller/add.html", {
                     "newUserForm": newUserForm,
                     "newPersonForm": newPersonForm
                 })
@@ -151,12 +207,12 @@ def add_user(request):
     else:
         messages.error(request, 'La petición no es válida. El vendedor no pudo ser creado')
     
-    return redirect("list-users")
+    return redirect("list-sellers")
 
 @csrf_exempt
 @login_required
-def add_user_view(request):
-    return render(request, "user/add.html", {
+def add_seller_view(request):
+    return render(request, "seller/add.html", {
         "newUserForm": NewUserForm(),
         "newPersonForm": NewPersonForm()
     })
@@ -166,6 +222,15 @@ def index(request):
         return render(request, "general/index.html")
     else:
         return HttpResponseRedirect(reverse("login"))
+
+@csrf_exempt
+@login_required
+def list_admins(request):
+    admins = User.objects.all().filter(user_type="admin")
+    
+    return render(request, "admin/list.html", {
+        "admins": admins
+    })
 
 @csrf_exempt
 @login_required
@@ -188,19 +253,10 @@ def list_products(request):
 @csrf_exempt
 @login_required
 def list_sellers(request):
-    sellers = User.objects.all().filter(user_type="seller")
+    sellers = User.objects.all().filter(user_type="vendedor")
     
     return render(request, "seller/list.html", {
         "sellers": sellers
-    })
-
-@csrf_exempt
-@login_required
-def list_users(request):
-    users = User.objects.all()
-    
-    return render(request, "user/list.html", {
-        "users": users
     })
 
 def login_view(request):
