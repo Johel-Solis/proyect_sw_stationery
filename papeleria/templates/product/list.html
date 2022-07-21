@@ -63,7 +63,7 @@
                                         <td>{{ product.stock }}</td>
                                         <td>{{ product.purchase_price }}</td>
                                         <td>{{ product.sale_price }}</td>
-                                        <td><a class="btn btn-secondary"href="/edit_product_view/{{product.reference}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_product/","{{product.reference}}")'><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="btn btn-secondary" href="{% url 'edit-product-view' reference=product.reference %}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_product/","{{product.reference}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     

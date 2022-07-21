@@ -22,7 +22,7 @@
    
 </head>
 
-<body id="page-top" style="background: url(&quot;static/papeleria/img/1623120187_372340.jpeg&quot;) top / contain round;">
+<body id="page-top" style="background-image: url('/static/papeleria/img/Background_pattern.png');">
    <nav class="navbar navbar-light navbar-expand-lg sticky-top " id="mainNav" style="background: #2c2a2d; position: relative;">
         <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}"><img src="{% static 'papeleria/img/S_S_Icon.svg' %}"
                 width="118" height="53"></a>
@@ -38,24 +38,24 @@
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add_product_view">Adicionar</a>
-                        <a class="dropdown-item" href="/list_products">Listar</a>
+                        <a class="dropdown-item" href="{% url 'add-product-view' %}">Adicionar</a>
+                        <a class="dropdown-item" href="{% url 'list-products-view' %}">Listar</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-4" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">vendedores</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add_seller_view">Adicionar</a>
-                        <a class="dropdown-item" href="/list_sellers">Listar</a>
+                        <a class="dropdown-item" href="{% url 'add-seller-view' %}">Adicionar</a>
+                        <a class="dropdown-item" href="{% url 'list-sellers-view' %}">Listar</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-4" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">administradores</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add_admin_view">Adicionar</a>
-                        <a class="dropdown-item" href="/list_admins">Listar</a>
+                        <a class="dropdown-item" href="{% url 'add-admin-view' %}">Adicionar</a>
+                        <a class="dropdown-item" href="{% url 'list-admins-view' %}">Listar</a>
                     </div>
                 </li>
     
@@ -64,8 +64,8 @@
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-3" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">clientes</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add_customer_view">Adicionar</a>
-                        <a class="dropdown-item" href="/list_customers">Listar</a>
+                        <a class="dropdown-item" href="{% url 'add-customer-view' %}">Adicionar</a>
+                        <a class="dropdown-item" href="{% url 'list-customers-view' %}">Listar</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

@@ -59,7 +59,7 @@
                                     <tr><td>{{ customer.id }}</td>
                                         <td>{{ customer.name }}</td>
                                         <td>{{ customer.phone }}</td>
-                                        <td><a class="btn btn-secondary"href="/edit_customer_view/{{customer.id}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_customer/","{{customer.id}}")'><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="btn btn-secondary" href="{% url 'edit-customer-view' id=customer.id %}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_customer/","{{customer.id}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     
