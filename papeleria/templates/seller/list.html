@@ -58,7 +58,7 @@
                                     {% for seller in sellers %}
                                     <tr><td>{{ seller.id }}</td>
                                         <td>{{ seller.username  }}</td>
-                                        <td><a class="btn btn-secondary"href="/edit_seller_view/{{seller.id}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"  onclick='deleteObject ("/delete_seller/","{{seller.id}}")'><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="btn btn-secondary" href="{% url 'edit-seller-view' userId=seller.id %}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"  onclick='deleteObject ("/delete_seller/","{{seller.id}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     

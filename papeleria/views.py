@@ -65,7 +65,7 @@ def add_admin(request):
     else:
         messages.error(request, 'La petición no es válida. El administrador no pudo ser creado')
     
-    return redirect("list-admins")
+    return redirect("list-admins-view")
 
 @csrf_exempt
 @login_required
@@ -106,7 +106,7 @@ def add_customer(request):
     else:
         messages.error(request, 'La petición no es válida. El cliente no pudo ser creado')
     
-    return redirect("list-customers")
+    return redirect("list-customers-view")
 
 @csrf_exempt
 @login_required
@@ -151,7 +151,7 @@ def add_product(request):
     else:
         messages.error(request, 'La petición no es válida. El producto no pudo ser creado')
     
-    return redirect("list-products")
+    return redirect("list-products-view")
 
 @csrf_exempt
 @login_required
@@ -208,7 +208,7 @@ def add_seller(request):
     else:
         messages.error(request, 'La petición no es válida. El vendedor no pudo ser creado')
     
-    return redirect("list-sellers")
+    return redirect("list-sellers-view")
 
 @csrf_exempt
 @login_required
@@ -254,6 +254,7 @@ def edit_admin(request, userId):
                 messages.success(request, 'El administrador se editó exitosamente')
             else:
                 return render(request, "admin/edit.html", {
+                    "userId": userId,
                     "editUserForm": newUserForm,
                     "editPersonForm": newPersonForm,
                     "userId": userId
@@ -264,7 +265,7 @@ def edit_admin(request, userId):
     else:
         messages.error(request, 'La petición no es válida. El administrador no pudo ser editado')
     
-    return redirect("list-admins")
+    return redirect("list-admins-view")
 
 @csrf_exempt
 @login_required
@@ -275,9 +276,15 @@ def edit_admin_view(request, userId):
     editPersonForm = NewPersonForm(instance=person)
 
     return render(request, "admin/edit.html", {
+<<<<<<< HEAD
         "editUserForm": editUserForm,
         "editPersonForm": editPersonForm,
         "userId": userId
+=======
+        "userId": userId,
+        "editUserForm": newUserForm,
+        "editPersonForm": newPersonForm
+>>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
     })
 
 @csrf_exempt
@@ -303,6 +310,11 @@ def edit_customer(request, id):
                 messages.success(request, 'El cliente se editó exitosamente')
             else:
                 return render(request, "customer/edit.html", {
+<<<<<<< HEAD
+=======
+                    "customerId": id,
+                    "editCustomerForm": newCustomerForm,
+>>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
                     "editCustomerForm": newCustomerForm
                 })
         except Exception as e:
@@ -311,7 +323,7 @@ def edit_customer(request, id):
     else:
         messages.error(request, 'La petición no es válida. El cliente no pudo ser editado')
     
-    return redirect("list-customers")
+    return redirect("list-customers-view")
 
 @csrf_exempt
 @login_required
@@ -320,6 +332,7 @@ def edit_customer_view(request, id):
     newCustomerForm = NewCustomerForm(instance=customer)
 
     return render(request, "customer/edit.html", {
+        "customerId": id,
         "editCustomerForm": newCustomerForm
     })
 
@@ -352,6 +365,7 @@ def edit_product(request, reference):
                 messages.success(request, 'El producto se editó exitosamente')
             else:
                 return render(request, "product/edit.html", {
+                    "productReference": reference,
                     "newProductForm": newProductForm
                 })
         except Exception as e:
@@ -360,7 +374,7 @@ def edit_product(request, reference):
     else:
         messages.error(request, 'La petición no es válida. El producto no pudo ser editado')
     
-    return redirect("list-products")
+    return redirect("list-products-view")
 
 @csrf_exempt
 @login_required
@@ -369,6 +383,7 @@ def edit_product_view(request, reference):
     editProductForm = NewProductForm(instance=product)
 
     return render(request, "product/edit.html", {
+        "productReference": reference,
         "editProductForm": editProductForm
     })
 
@@ -408,9 +423,15 @@ def edit_seller(request, userId):
                 messages.success(request, 'El vendedor se editó exitosamente')
             else:
                 return render(request, "seller/edit.html", {
+<<<<<<< HEAD
                     "editUserForm": newUserForm,
                     "editPersonForm": newPersonForm,
                     "userId": userId
+=======
+                    "userId": userId,
+                    "editUserForm": newUserForm,
+                    "editPersonForm": newPersonForm
+>>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
                 })
         except Exception as e:
             print(e)
@@ -418,13 +439,18 @@ def edit_seller(request, userId):
     else:
         messages.error(request, 'La petición no es válida. El vendedor no pudo ser editado')
     
+<<<<<<< HEAD
     return redirect("list-sellers")
+=======
+    return redirect("list-sellers-view")
+>>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
 
 @csrf_exempt
 @login_required
 def edit_seller_view(request, userId):
     user = User.objects.get(id=userId)
     person = Person.objects.get(user=user)
+<<<<<<< HEAD
     editUserForm = NewUserForm(instance=user)
     editPersonForm = NewPersonForm(instance=person)
 
@@ -432,6 +458,15 @@ def edit_seller_view(request, userId):
         "editUserForm": editUserForm,
         "editPersonForm": editPersonForm,
         "userId": userId
+=======
+    newUserForm = NewUserForm(instance=user)
+    newPersonForm = NewPersonForm(instance=person)
+
+    return render(request, "seller/edit.html", {
+        "userId": userId,
+        "editUserForm": newUserForm,
+        "editPersonForm": newPersonForm
+>>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
     })
 
 @csrf_exempt
@@ -515,7 +550,7 @@ def index(request):
 
 @csrf_exempt
 @login_required
-def list_admins(request):
+def list_admins_view(request):
     admins = User.objects.all().filter(user_type="admin")
     
     return render(request, "admin/list.html", {
@@ -524,7 +559,7 @@ def list_admins(request):
 
 @csrf_exempt
 @login_required
-def list_customers(request):
+def list_customers_view(request):
     customers = Customer.objects.all()
 
     return render(request, "customer/list.html", {
@@ -533,7 +568,7 @@ def list_customers(request):
 
 @csrf_exempt
 @login_required
-def list_products(request):
+def list_products_view(request):
     products = Product.objects.all()
 
     return render(request, "product/list.html", {
@@ -542,7 +577,7 @@ def list_products(request):
 
 @csrf_exempt
 @login_required
-def list_sellers(request):
+def list_sellers_view(request):
     sellers = User.objects.all().filter(user_type="vendedor")
     
     return render(request, "seller/list.html", {

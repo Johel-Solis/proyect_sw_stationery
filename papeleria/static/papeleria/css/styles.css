@@ -16,9 +16,8 @@ a:hover {
 }
 /*
 body {
-padding: 0px 0px;
-background: rgb(6,87,32);
-background: linear-gradient(180deg, rgba(6,87,32,1) 0%, rgba(7,137,48,1) 7%, rgba(7,137,48,1) 93%, rgba(6,87,32,1) 100%); 
+  padding: 0px 0px;
+  background-color: #1a1a1a;
 }
 */
 h1 {
