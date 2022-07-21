@@ -44,8 +44,8 @@
                         </div>
                         <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
                             
-                            <input type="text" class="form-control is-invalid" id="id" name="id"
-                                    value="{{ editCustomerForm.id.value }}" placeholder="Cedula o Nit" required="" minlength="0" readonly>
+                            <input type="number" class="form-control "  name="id"
+                                    value="{{editCustomerForm.id.value}}" placeholder="Cedula o Nit" required="" minlength="0" readonly>
                             
                         </div>
                     </div>
@@ -56,8 +56,8 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                             
-                            <input type="text" class="form-control" id="name" name="name"
-                                    value="{{ editCustomerForm.name.value }}" placeholder="Nombre" required="">
+                            <input type="text" class="form-control"  name="name"
+                                    value="{{editCustomerForm.name.value}}" placeholder="Nombre" required="">
                         </div>
                     </div>
                     <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 1px;">
@@ -68,8 +68,8 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                            
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                    value="{{ editCustomerForm.phone.value }}" placeholder="Telefono" required="">
+                            <input type="number" class="form-control"  name="phone"
+                                    value="{{editCustomerForm.phone.value}}" placeholder="Telefono" required="">
                             
                         </div>
                     </div>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                             
-                            <input type="text" class="form-control" id="email" name="email"
-                                    value="{{ editCustomerForm.email.value }}" placeholder="Correo electrónico" >
+                            <input type="email" class="form-control"  name="email"
+                                    value="{{editCustomerForm.email.value}}" placeholder="Correo electrónico" >
                            
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <div
                             class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto">
                             <button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;"
-                                type="reset">cancelar</button><button class="btn btn-light btn-lg"
+                            onclick='"/list_customers"'>cancelar</button><button class="btn btn-light btn-lg"
                                 style="margin-left: 14px;" type="submit">Editar</button>
                         </div>
                     </div>

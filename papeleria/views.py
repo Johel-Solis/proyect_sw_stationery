@@ -238,16 +238,16 @@ def edit_admin(request, userId):
                 phone = None if request.POST["phone"] == "" else request.POST["phone"]
                 birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
 
-                user.username=username,
-                user.password=password,
+                user.username=username
+                user.password=password
                 user.user_type="admin"
                 user.save()
 
-                person.id=identification,
-                person.name=name,
-                person.surname=surname,
-                person.email=email,
-                person.phone=phone,
+                person.id=identification
+                person.name=name
+                person.surname=surname
+                person.email=email
+                person.phone=phone
                 person.birthday=birthday
                 person.save()
 
@@ -255,7 +255,8 @@ def edit_admin(request, userId):
             else:
                 return render(request, "admin/edit.html", {
                     "editUserForm": newUserForm,
-                    "editPersonForm": newPersonForm
+                    "editPersonForm": newPersonForm,
+                    "userId": userId
                 })
         except Exception as e:
             print(e)
@@ -270,12 +271,13 @@ def edit_admin(request, userId):
 def edit_admin_view(request, userId):
     user = User.objects.get(id=userId)
     person = Person.objects.get(user=user)
-    newUserForm = NewUserForm(instance=user)
-    newPersonForm = NewPersonForm(instance=person)
+    editUserForm = NewUserForm(instance=user)
+    editPersonForm = NewPersonForm(instance=person)
 
     return render(request, "admin/edit.html", {
-        "editUserForm": newUserForm,
-        "editPersonForm": newPersonForm
+        "editUserForm": editUserForm,
+        "editPersonForm": editPersonForm,
+        "userId": userId
     })
 
 @csrf_exempt
@@ -284,24 +286,23 @@ def edit_customer(request, id):
     if request.method == "POST":
         try:
             customer = Customer.objects.get(id=id)
-            newCustomerForm = newCustomerForm(request.POST, instance=customer)
+            newCustomerForm = NewCustomerForm(request.POST, instance=customer)
 
-            if newCustomerForm.is_valid():
+            if newCustomerForm.is_valid():  
                 identification = request.POST["id"]
                 name = request.POST["name"]
                 email = None if request.POST["email"] == "" else request.POST["email"]
                 phone = None if request.POST["phone"] == "" else request.POST["phone"]
 
-                customer.id=identification,
-                customer.name=name,
-                customer.email=email,
+                customer.id=identification
+                customer.name=name
+                customer.email=email
                 customer.phone=phone
                 customer.save()
 
                 messages.success(request, 'El cliente se editó exitosamente')
             else:
                 return render(request, "customer/edit.html", {
-                    "editCustomerForm": newCustomerForm,
                     "editCustomerForm": newCustomerForm
                 })
         except Exception as e:
@@ -316,7 +317,7 @@ def edit_customer(request, id):
 @login_required
 def edit_customer_view(request, id):
     customer = Customer.objects.get(id=id)
-    newCustomerForm = newCustomerForm(instance=customer)
+    newCustomerForm = NewCustomerForm(instance=customer)
 
     return render(request, "customer/edit.html", {
         "editCustomerForm": newCustomerForm
@@ -369,6 +370,68 @@ def edit_product_view(request, reference):
 
     return render(request, "product/edit.html", {
         "editProductForm": editProductForm
+    })
+
+@csrf_exempt
+@login_required
+def edit_seller(request, userId):
+    if request.method == "POST":
+        try:
+            user = User.objects.get(id=userId)
+            person = Person.objects.get(user=user)
+            newUserForm = NewUserForm(request.POST, instance=user)
+            newPersonForm = NewPersonForm(request.POST, instance=person)
+            
+            if newUserForm.is_valid() and newPersonForm.is_valid():
+                username = request.POST["username"]
+                password = request.POST["password"]
+                identification = request.POST["id"]
+                name = request.POST["name"]
+                surname= request.POST["surname"]
+                email = None if request.POST["email"] == "" else request.POST["email"]
+                phone = None if request.POST["phone"] == "" else request.POST["phone"]
+                birthday = None if request.POST["birthday"] == "" else request.POST["birthday"]
+
+                user.username=username
+                user.password=password
+                user.user_type="vendedor"
+                user.save()
+
+                person.id=identification
+                person.name=name
+                person.surname=surname
+                person.email=email
+                person.phone=phone
+                person.birthday=birthday
+                person.save()
+
+                messages.success(request, 'El vendedor se editó exitosamente')
+            else:
+                return render(request, "seller/edit.html", {
+                    "editUserForm": newUserForm,
+                    "editPersonForm": newPersonForm,
+                    "userId": userId
+                })
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Se produjo un error. El vendedor no pudo ser editado')
+    else:
+        messages.error(request, 'La petición no es válida. El vendedor no pudo ser editado')
+    
+    return redirect("list-sellers")
+
+@csrf_exempt
+@login_required
+def edit_seller_view(request, userId):
+    user = User.objects.get(id=userId)
+    person = Person.objects.get(user=user)
+    editUserForm = NewUserForm(instance=user)
+    editPersonForm = NewPersonForm(instance=person)
+
+    return render(request, "seller/edit.html", {
+        "editUserForm": editUserForm,
+        "editPersonForm": editPersonForm,
+        "userId": userId
     })
 
 @csrf_exempt

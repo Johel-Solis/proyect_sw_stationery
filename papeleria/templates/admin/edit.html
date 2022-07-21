@@ -19,7 +19,7 @@
 
     <div class="container">
         <div>
-            <form action="/edit_admin/5" method="POST" enctype="multipart/form-data">
+            <form action="/edit_admin/{{userId}}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group" style="margin-top: 25px;">
                     <div id="formdiv" style="background: #ffffff;" class="mr-5 ml-5">
@@ -31,7 +31,7 @@
                         <div class="form-row" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
                             {% if editPersonForm.id.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>El Vendedor con esta cedula ya existe.</strong>
+                                    <strong>El Administrador con esta cedula ya existe.</strong>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
         
-                                    <input type="number" class="form-control is-invalid" id="id" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id" value="{{ editPersonForm.id.value }}" placeholder="Cedula" required="" maxlength="255" readonly>
+                                    <input type="number" class="form-control " id="id" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id" value="{{ editPersonForm.id.value }}" placeholder="Cedula" required="" maxlength="255" readonly>
 
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="col-md-10 col-lg-9 offset-md-1">
                                 
-                                    <input type="text" class="form-control is-invalid" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="username" id="username" value="{{ editUserForm.username.value }}" placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+">
+                                    <input type="text" class="form-control " style="margin-left: 0px;font-family: Roboto, sans-serif;" name="username" id="username" value="{{ editUserForm.username.value }}" placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+">
                                
                                 </div>
                         </div>
@@ -131,15 +131,13 @@
                         </div>
                         
                         <div class="form-row justify-content-end" style="margin-right:0px;margin-left:0px;padding-top:24px;">
-                            <div class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto"><button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;" type="reset">cancelar</button><button class="btn btn-light btn-lg" style="margin-left: 14px;" type="submit">Editar</button></div>
+                            <div class="col-lg-7 col-xl-5 justify-content-end align-items-end align-content-end align-self-end ml-auto"><button class="btn btn-light btn-lg" style="font-family:Roboto, sans-serif;" onclick='"/list_admins"'>cancelar</button><button class="btn btn-light btn-lg" style="margin-left: 14px;" type="submit">Editar</button></div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>    
     </div>
-
-=======
 
 {% endblock %}
 

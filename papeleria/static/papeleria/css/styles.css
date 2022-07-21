@@ -1,7 +1,10 @@
 /* ----------------------------------------
   General
 */
-
+body {
+  background:url(/static/papeleria/img/1623120187_372340.jpeg) top / contain round;;
+  padding: 0px 0px;
+}
 a {
   color: #078930;
   font-weight: bold;
@@ -11,13 +14,13 @@ a:hover {
   color: #04521d;
   text-decoration: none;
 }
-
+/*
 body {
 padding: 0px 0px;
 background: rgb(6,87,32);
 background: linear-gradient(180deg, rgba(6,87,32,1) 0%, rgba(7,137,48,1) 7%, rgba(7,137,48,1) 93%, rgba(6,87,32,1) 100%); 
 }
-
+*/
 h1 {
 color: black;
 font-weight: bold;

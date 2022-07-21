@@ -44,10 +44,10 @@
                         </div>
                         <div class="col-md-10 col-lg-9 col-xl-9 offset-md-1">
                             {% if newCustomerForm.id.errors %} 
-                            <input type="text" class="form-control is-invalid" id="id" name="id"
-                                    value="{{ newCustomerForm.id.value }}" placeholder="Cedula o Nit" required="" minlength="0">
+                            <input type="number" class="form-control is-invalid"  name="id"
+                                    value="{{newCustomerForm.id.value}}" placeholder="Cedula o Nit" required="" minlength="0">
                             {% else %}
-                            <input class="form-control" type="number"style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id" id="id" placeholder="Cedula o Nit" required="" minlength="0">
+                            <input class="form-control" type="number"style="margin-left: 0px;font-family: Roboto, sans-serif;" name="id"  placeholder="Cedula o Nit" required="" minlength="0">
                             {% endif %}
                         </div>
                     </div>
@@ -58,10 +58,10 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                             {% if newCustomerForm.id.errors %}
-                            <input type="text" class="form-control" id="name" name="name"
+                            <input type="text" class="form-control"  name="name"
                                     value="{{ newCustomerForm.name.value }}" placeholder="Nombre" required="">
                             {% else %}
-                            <input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name" id="name" placeholder="Nombre" required="">
+                            <input class="form-control" type="text" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="name"  placeholder="Nombre" required="">
                             {% endif %}
                         </div>
                     </div>
@@ -73,10 +73,10 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                             {% if newCustomerForm.id.errors %}
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                    value="{{ newCustomerForm.phone.value }}" placeholder="Telefono" required="">
+                            <input type="number" class="form-control"  name="phone"
+                                    value="{{newCustomerForm.phone.value}}" placeholder="Telefono" required="">
                             {% else %} 
-                            <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="phone" id="phone" placeholder="Telefono" >
+                            <input class="form-control" type="number" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="phone"  placeholder="Telefono" >
                             {% endif %}
                         </div>
                     </div>
@@ -87,10 +87,10 @@
                         </div>
                         <div class="col-md-10 col-lg-9 offset-md-1">
                             {% if newCustomerForm.id.errors %}
-                            <input type="text" class="form-control" id="email" name="email"
-                                    value="{{ newCustomerForm.email.value }}" placeholder="Correo electrónico" >
+                            <input type="email" class="form-control"  name="email"
+                                    value="{{newCustomerForm.email.value}}" placeholder="Correo electrónico" >
                             {% else %}
-                            <input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="email" id="email" placeholder="Correo electrónico" >
+                            <input class="form-control" type="email" style="margin-left: 0px;font-family: Roboto, sans-serif;" name="email" placeholder="Correo electrónico" >
                             {% endif %}
                         </div>
                     </div>
