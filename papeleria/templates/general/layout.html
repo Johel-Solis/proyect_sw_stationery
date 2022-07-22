@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic&amp;display=swap">
     <link rel="stylesheet" href="{% static 'papeleria/fonts/font-awesome.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-    <link rel="stylesheet" href="{% static 'papeleria/css/Login-Form-Basic-icons.css' %}">
+    
     <script src="{% static 'papeleria/js/generalScripts.js' %}"></script>
     
     <link href="{% static 'papeleria/css/styles.css' %}" rel="stylesheet">
@@ -22,11 +22,7 @@
    
 </head>
 
-<<<<<<< HEAD
-<body id="page-top" >
-=======
 <body id="page-top" style="background-image: url('/static/papeleria/img/Background_pattern.png');">
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
    <nav class="navbar navbar-light navbar-expand-lg sticky-top " id="mainNav" style="background: #2c2a2d; position: relative;">
         <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}"><img src="{% static 'papeleria/img/S_S_Icon.svg' %}"
                 width="118" height="53"></a>
@@ -131,7 +127,7 @@
         {% endfor %}
 
     {% endif %}
-    <div id="main-container">
+    <div >
         {% block body %}
         {% endblock %}
     </div>

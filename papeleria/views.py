@@ -98,7 +98,7 @@ def add_customer(request):
                 messages.success(request, 'El cliente se creó exitosamente')
             else:
                 return render(request, "customer/add.html", {
-                    "newCustomerSForm": newCustomerForm
+                    "newCustomerForm": newCustomerForm
                 })
         except Exception as e:
             print(e)
@@ -256,8 +256,8 @@ def edit_admin(request, userId):
                 return render(request, "admin/edit.html", {
                     "userId": userId,
                     "editUserForm": newUserForm,
-                    "editPersonForm": newPersonForm,
-                    "userId": userId
+                    "editPersonForm": newPersonForm
+                    
                 })
         except Exception as e:
             print(e)
@@ -276,15 +276,9 @@ def edit_admin_view(request, userId):
     editPersonForm = NewPersonForm(instance=person)
 
     return render(request, "admin/edit.html", {
-<<<<<<< HEAD
         "editUserForm": editUserForm,
         "editPersonForm": editPersonForm,
         "userId": userId
-=======
-        "userId": userId,
-        "editUserForm": newUserForm,
-        "editPersonForm": newPersonForm
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
     })
 
 @csrf_exempt
@@ -310,11 +304,6 @@ def edit_customer(request, id):
                 messages.success(request, 'El cliente se editó exitosamente')
             else:
                 return render(request, "customer/edit.html", {
-<<<<<<< HEAD
-=======
-                    "customerId": id,
-                    "editCustomerForm": newCustomerForm,
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
                     "editCustomerForm": newCustomerForm
                 })
         except Exception as e:
@@ -423,15 +412,9 @@ def edit_seller(request, userId):
                 messages.success(request, 'El vendedor se editó exitosamente')
             else:
                 return render(request, "seller/edit.html", {
-<<<<<<< HEAD
                     "editUserForm": newUserForm,
                     "editPersonForm": newPersonForm,
                     "userId": userId
-=======
-                    "userId": userId,
-                    "editUserForm": newUserForm,
-                    "editPersonForm": newPersonForm
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
                 })
         except Exception as e:
             print(e)
@@ -439,26 +422,13 @@ def edit_seller(request, userId):
     else:
         messages.error(request, 'La petición no es válida. El vendedor no pudo ser editado')
     
-<<<<<<< HEAD
-    return redirect("list-sellers")
-=======
     return redirect("list-sellers-view")
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
 
 @csrf_exempt
 @login_required
 def edit_seller_view(request, userId):
     user = User.objects.get(id=userId)
     person = Person.objects.get(user=user)
-<<<<<<< HEAD
-    editUserForm = NewUserForm(instance=user)
-    editPersonForm = NewPersonForm(instance=person)
-
-    return render(request, "seller/edit.html", {
-        "editUserForm": editUserForm,
-        "editPersonForm": editPersonForm,
-        "userId": userId
-=======
     newUserForm = NewUserForm(instance=user)
     newPersonForm = NewPersonForm(instance=person)
 
@@ -466,7 +436,6 @@ def edit_seller_view(request, userId):
         "userId": userId,
         "editUserForm": newUserForm,
         "editPersonForm": newPersonForm
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
     })
 
 @csrf_exempt

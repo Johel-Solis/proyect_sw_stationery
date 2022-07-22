@@ -41,7 +41,7 @@
             <div class="col">
                 <div class="card shadow">
                     <div class="card-header py-2" style="font-weight: bold;text-align: center;">
-                        <p class="lead text-info m-0">Clientes</p>
+                        <p class="lead font-weight-bold text-secondary m-0" style="font-weight: bold;">Clientes</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive table mb-0 pt-3 pr-2">
@@ -59,11 +59,7 @@
                                     <tr><td>{{ customer.id }}</td>
                                         <td>{{ customer.name }}</td>
                                         <td>{{ customer.phone }}</td>
-<<<<<<< HEAD
-                                        <td><a class="btn btn-secondary"href="edit_customer_view/{{customer.id}}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_customer/","{{customer.id}}")'><i class="fas fa-trash"></i></a></td>
-=======
-                                        <td><a class="btn btn-secondary" href="{% url 'edit-customer-view' id=customer.id %}" type="button"><i class="fas fa-eye"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_customer/","{{customer.id}}")'><i class="fas fa-trash"></i></a></td>
->>>>>>> cb7b1c46b1ee8f163fd133f6e4a141c76b748090
+                                        <td><a class="btn btn-secondary" href="{% url 'edit-customer-view' id=customer.id %}" type="button"><i class="fas fa-pen"></i></a><a class="btn btn-secondary" type="button"   onclick='deleteObject ("/delete_customer/","{{customer.id}}")'><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     

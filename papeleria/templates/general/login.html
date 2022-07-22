@@ -1,11 +1,15 @@
 {% extends "general/layout.html" %}
+{% load static %}
+{% block link %}  
+    <link rel="stylesheet" href="{% static 'papeleria/css/Login-Form-Basic-icons.css' %}">
+{% endblock %}
 
 {% block body %}
     <section class="position-relative py-4 py-xl-5">
         <div class="container position-relative">
             <div class="row mb-5" style="margin-bottom: 30px;padding-bottom: 2px;margin-top: 10px;">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 class="font-weight-bold" style="font-family: 'Open Sans', sans-serif;font-size: 50px;font-weight: bold;color: rgb(0,0,0);">Login</h2>
+                    <h2 class="font-weight-bold" style="font-family: 'Open Sans', sans-serif;font-size: 50px;font-weight: bold;color: #fff;">Login</h2>
                 </div>
             </div>
             <div class="row d-flex justify-content-center" style="margin-top: 2px;">

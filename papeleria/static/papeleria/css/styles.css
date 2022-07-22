@@ -1,10 +1,7 @@
 /* ----------------------------------------
   General
 */
-body {
-  background:url(/static/papeleria/img/1623120187_372340.jpeg) top / contain round;;
-  padding: 0px 0px;
-}
+
 a {
   color: #078930;
   font-weight: bold;
@@ -285,4 +282,26 @@ position: relative;
 .warning {
 display: none;
 font-weight: bold;
+}
+
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #868e96;
+  border-color: #868e96;
+}
+
+
+.externo {
+  border: 1px solid blue;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.interno {
+  border: 1px dashed goldenrod;
+}
+#formdiv
+{
+  
+  background-color: #fff;
 }
