@@ -220,6 +220,84 @@ def add_seller_view(request):
 
 @csrf_exempt
 @login_required
+def delete_admin(request, id):
+    if request.method == "DELETE":
+        try:
+            admin = User.objects.filter(id=id)
+
+            if admin:
+                admin.delete()
+
+                if request.user.id == id:
+                    logout(request)
+                    return HttpResponseRedirect(reverse("login"))
+                else:
+                    return JsonResponse({"message": "Administrador eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El administrador no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Administrador no eliminado"}, status=201)
+
+@csrf_exempt
+@login_required
+def delete_customer(request, id):
+    if request.method == "DELETE":
+        try:
+            customer = Customer.objects.filter(id=id)
+
+            if customer:
+                customer.delete()
+                return JsonResponse({"message": "Cliente eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El cliente no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Cliente no eliminado"}, status=201)
+
+@csrf_exempt
+@login_required
+def delete_product(request, reference):
+    if request.method == "DELETE":
+        try:
+            product = Product.objects.filter(reference=reference)
+
+            if product:
+                product.delete()
+                return JsonResponse({"message": "Producto eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El producto no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Producto no eliminado"}, status=201)
+
+
+@csrf_exempt
+@login_required
+def delete_seller(request, id):
+    if request.method == "DELETE":
+        try:
+            seller = User.objects.filter(id=id)
+
+            if seller:
+                seller.delete()
+                return JsonResponse({"message": "Vendedor eliminado"}, status=201)
+            else:
+                return JsonResponse({"message": "El vendedor no existe"}, status=201)
+        except Exception as e:
+            transaction.rollback()
+            print(e)
+    
+    return JsonResponse({"message": "Vendedor no eliminado"}, status=201)
+
+@csrf_exempt
+@login_required
 def edit_admin(request, userId):
     if request.method == "POST":
         try:
@@ -438,79 +516,6 @@ def edit_seller_view(request, userId):
         "editPersonForm": newPersonForm
     })
 
-@csrf_exempt
-@login_required
-def delete_admin(request, id):
-    if request.method == "DELETE":
-        try:
-            admin = User.objects.filter(id=id)
-
-            if admin:
-                admin.delete()
-                return JsonResponse({"message": "Administrador eliminado"}, status=201)
-            else:
-                return JsonResponse({"message": "El administrador no existe"}, status=201)
-        except Exception as e:
-            transaction.rollback()
-            print(e)
-    
-    return JsonResponse({"message": "Administrador no eliminado"}, status=201)
-
-@csrf_exempt
-@login_required
-def delete_customer(request, id):
-    if request.method == "DELETE":
-        try:
-            customer = Customer.objects.filter(id=id)
-
-            if customer:
-                customer.delete()
-                return JsonResponse({"message": "Cliente eliminado"}, status=201)
-            else:
-                return JsonResponse({"message": "El cliente no existe"}, status=201)
-        except Exception as e:
-            transaction.rollback()
-            print(e)
-    
-    return JsonResponse({"message": "Cliente no eliminado"}, status=201)
-
-@csrf_exempt
-@login_required
-def delete_product(request, reference):
-    if request.method == "DELETE":
-        try:
-            product = Product.objects.filter(reference=reference)
-
-            if product:
-                product.delete()
-                return JsonResponse({"message": "Producto eliminado"}, status=201)
-            else:
-                return JsonResponse({"message": "El producto no existe"}, status=201)
-        except Exception as e:
-            transaction.rollback()
-            print(e)
-    
-    return JsonResponse({"message": "Producto no eliminado"}, status=201)
-
-
-@csrf_exempt
-@login_required
-def delete_seller(request, id):
-    if request.method == "DELETE":
-        try:
-            seller = User.objects.filter(id=id)
-
-            if seller:
-                seller.delete()
-                return JsonResponse({"message": "Vendedor eliminado"}, status=201)
-            else:
-                return JsonResponse({"message": "El vendedor no existe"}, status=201)
-        except Exception as e:
-            transaction.rollback()
-            print(e)
-    
-    return JsonResponse({"message": "Vendedor no eliminado"}, status=201)
-
 def index(request):
     if request.user.is_authenticated:
         return render(request, "general/index.html")
@@ -553,6 +558,7 @@ def list_sellers_view(request):
         "sellers": sellers
     })
 
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 
