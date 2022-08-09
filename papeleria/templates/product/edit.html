@@ -17,6 +17,11 @@
  {%endblock%}
 {% block body %}
     <div class="container">
+        <form action="/edit_product/{{ productReference }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{ editProductForm.as_p }}
+            <button type="submit">Save</button>
+        </form>
         <div class="form-group justify-content-center align-items-center align-content-center align-self-center" style="margin-top: 25px;">
             <form action="/edit_product/{{ productReference }}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

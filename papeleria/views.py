@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
 
-from .models import Bill, Customer, Person, Product, SaleDetail, User
+from .models import Bill, Category, Customer, Person, Product, SaleDetail, User
 from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
 
 # TODO:
@@ -124,6 +124,7 @@ def add_product(request):
             
             if newProductForm.is_valid():
                 reference = request.POST["reference"]
+                category = Category.objects.get(id=request.POST["category"])
                 name = request.POST["name"]
                 stock = request.POST["stock"]
                 brand = request.POST["brand"]
@@ -133,6 +134,7 @@ def add_product(request):
                 
                 product = Product(
                     reference=reference,
+                    category=category,
                     name=name,
                     stock=stock,
                     brand=brand,
@@ -413,6 +415,7 @@ def edit_product(request, reference):
 
             if newProductForm.is_valid():
                 reference = request.POST["reference"]
+                category = Category.objects.get(id=request.POST["category"])
                 name = request.POST["name"]
                 stock = request.POST["stock"]
                 brand = request.POST["brand"]
@@ -421,6 +424,7 @@ def edit_product(request, reference):
                 description = request.POST["description"]
 
                 product.reference=reference
+                product.category=category
                 product.name=name
                 product.stock=stock
                 product.brand=brand

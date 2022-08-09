@@ -1,12 +1,13 @@
 from django import forms
-from .models import Customer, Person, Product, User
+from .models import Category, Customer, Person, Product, User
 
 class NewProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('reference', 'name', 'stock', 'brand', 'purchase_price', 'sale_price', 'description')
+        fields = ('reference', 'category', 'name', 'stock', 'brand', 'purchase_price', 'sale_price', 'description')
         labels = {
             "reference":  "Referencia",
+            "category":  "Categoria",
             "name": "Nombre",
             "stock": "Existencias",
             "brand": "Marca",

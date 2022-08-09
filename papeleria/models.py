@@ -21,6 +21,7 @@ class Customer(models.Model):
     
 class Product(models.Model):
     reference = models.IntegerField(unique=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     stock = models.IntegerField()
     brand = models.CharField(max_length=50)
@@ -40,3 +41,11 @@ class SaleDetail(models.Model):
     quantity = models.IntegerField()
     unit_price = models.FloatField()
     total = models.FloatField()
+
+class Category(models.Model):
+    parent = models.ForeignKey("Category", on_delete=models.CASCADE, default=None, blank=True, null=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=60, default=None, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
