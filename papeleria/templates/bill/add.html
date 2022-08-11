@@ -1,0 +1,35 @@
+{% extends "general/layout.html" %}
+{% load static %}
+{%block link%}
+    <link rel="stylesheet" href="{% static 'papeleria/css/Bootstrap-4---Payment-Form.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Contact-form.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Login-Form-Basic-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/PHP-Contact-Form-dark-contact.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/PHP-Contact-Form-dark.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Responsive-Form-Contact-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'papeleria/css/Responsive-Form.css' %}">
+{%endblock%}
+
+{%block script%}
+    <script src="{% static 'papeleria/js/Bootstrap-4---Payment-Form.js' %}"></script>
+    <script src="{% static 'papeleria/js/PHP-Contact-Form-dark-1.js' %}"></script>
+    <script src="{% static 'papeleria/js/PHP-Contact-Form-dark.js' %}"></script>
+ {%endblock%}
+{% block body %}
+    <div class="container">
+        <div class="form-group justify-content-center align-items-center align-content-center align-self-center" style="margin-top: 25px;">
+            <form action="/set_customer" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ setPersonForm.as_p }}
+                <button type="submit">Seleccionar Cliente</button>
+            </form>
+            {%if customer %}
+                <p>Cedula: {{ customer.id }}</p>
+                <p>Nombre: {{ customer.name }}</p>
+            {%endif%}
+        </div>
+    </div>
+{% endblock %}
+
+
+    

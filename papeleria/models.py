@@ -31,9 +31,10 @@ class Product(models.Model):
 
 class Bill(models.Model):
     seller = models.ForeignKey("User", on_delete=models.CASCADE)
-    customer = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    customer = models.ForeignKey("Customer", on_delete=models.CASCADE, default=None, blank=True, null=True)
     total = models.FloatField()
     date = models.DateTimeField()
+    paid = models.BooleanField(default=False)
 
 class SaleDetail(models.Model):
     product = models.ForeignKey("Product", on_delete=models.CASCADE)

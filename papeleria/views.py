@@ -6,16 +6,14 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
-import json
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
+import json
+import datetime
 
 from .models import Bill, Category, Customer, Person, Product, SaleDetail, User
-from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm
-
-# TODO:
-# Nothing
+from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm, SetPersonForm
 
 @csrf_exempt
 @login_required
@@ -73,6 +71,30 @@ def add_admin_view(request):
     return render(request, "admin/add.html", {
         "newUserForm": NewUserForm(),
         "newPersonForm": NewPersonForm()
+    })
+
+
+@csrf_exempt
+@login_required
+def add_bill_view(request):
+    bill = Bill.objects.all().filter(seller=request.user, paid=False)
+
+    if bill:
+        bill = bill[0]
+    else:
+        bill = Bill(
+            seller=request.user,
+            customer=None,
+            total=0,
+            date=datetime.datetime.now(),
+            paid=False)
+        bill.save()
+        customer = None
+
+    return render(request, "bill/add.html", {
+        "bill": bill,
+        "customer": bill.customer,
+        "setPersonForm": SetPersonForm()
     })
 
 @csrf_exempt
@@ -616,3 +638,43 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "general/register.html")
+
+@csrf_exempt
+@login_required
+def set_customer(request):
+    bill = None
+    customer = None
+    setPersonForm = SetPersonForm()
+    try:
+        bill = Bill.objects.get(seller=request.user, paid=False)
+        customer = bill.customer
+        setPersonForm = SetPersonForm(request.POST)
+        
+        if setPersonForm.is_valid():
+            newCustomerId = request.POST["id"]
+
+            if newCustomerId == "":
+                bill.customer = None
+                bill.save()
+                customer = bill.customer
+                setPersonForm = SetPersonForm()
+            else:
+                newCustomer = Customer.objects.all().filter(id=newCustomerId)
+
+                if newCustomer:
+                    bill.customer = newCustomer[0]
+                    bill.save()
+                    customer = bill.customer
+                    setPersonForm = SetPersonForm()
+                else:
+                    messages.info(request, 'No se encontro el cliente')
+        else:
+            messages.info(request, 'ID no valida. No se encontro el cliente')
+    except Exception as e:
+        messages.error(request, 'Se produjo un error. No se encontro el cliente')
+    
+    return render(request, "bill/add.html", {
+        "bill": bill,
+        "customer": customer,
+        "setPersonForm": setPersonForm
+    })

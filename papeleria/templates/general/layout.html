@@ -52,7 +52,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-4" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">administradores</a>
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administradores</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'add-admin-view' %}">Adicionar</a>
                         <a class="dropdown-item" href="{% url 'list-admins-view' %}">Listar</a>
@@ -62,7 +62,7 @@
                 {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-3" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">clientes</a>
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clientes</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'add-customer-view' %}">Adicionar</a>
                         <a class="dropdown-item" href="{% url 'list-customers-view' %}">Listar</a>
@@ -70,9 +70,9 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-secondary dropdown-toggle menu-option" id="navbarDropdown-2" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ventas</a>
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#add">Adicionar</a>
+                        <a class="dropdown-item" href="{% url 'add-bill-view' %}">Adicionar</a>
                         <a class="dropdown-item" href="#list">Listar</a>
                     </div>
                 </li>

@@ -49,3 +49,6 @@ class NewCustomerForm(forms.ModelForm):
             "phone": "Teléfono",
             "email": "Correo"
         }
+
+class SetPersonForm(forms.Form):
+    id = forms.IntegerField(required=False)
