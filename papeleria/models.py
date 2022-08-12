@@ -29,6 +29,9 @@ class Product(models.Model):
     sale_price = models.FloatField()
     description = models.CharField(max_length=60, default=None, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 class Bill(models.Model):
     seller = models.ForeignKey("User", on_delete=models.CASCADE)
     customer = models.ForeignKey("Customer", on_delete=models.CASCADE, default=None, blank=True, null=True)

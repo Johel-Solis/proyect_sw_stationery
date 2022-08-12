@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Customer, Person, Product, User
+from .models import Category, Customer, Person, Product, User, SaleDetail
 
 class NewProductForm(forms.ModelForm):
     class Meta:
@@ -50,5 +50,18 @@ class NewCustomerForm(forms.ModelForm):
             "email": "Correo"
         }
 
+class SearchProductForm(forms.Form):
+    reference = forms.IntegerField()
+
 class SetPersonForm(forms.Form):
     id = forms.IntegerField(required=False)
+
+class NewSaleDetailForm(forms.ModelForm):
+    class Meta:
+        model = SaleDetail
+        fields = ('product', 'quantity', 'unit_price')
+        labels = {
+            "product":  "Nombre producto",
+            "quantity": "Unidades",
+            "unit_price": "Precio unitario"
+        }
