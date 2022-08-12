@@ -1,6 +1,6 @@
 from tkinter import Widget
 from django import forms
-from .models import Category, Customer, Person, Product, User
+from .models import Category, Customer, Person, Product, User, SaleDetail
 
 class NewProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -87,7 +87,11 @@ class NewCustomerForm(forms.ModelForm):
         }
        
 
+class SearchProductForm(forms.Form):
+    reference = forms.IntegerField()
+
 class SetPersonForm(forms.Form):
+<<<<<<< HEAD
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
@@ -97,3 +101,16 @@ class SetPersonForm(forms.Form):
 
     id = forms.IntegerField(required=False)
 
+=======
+    id = forms.IntegerField(required=False)
+
+class NewSaleDetailForm(forms.ModelForm):
+    class Meta:
+        model = SaleDetail
+        fields = ('product', 'quantity', 'unit_price')
+        labels = {
+            "product":  "Nombre producto",
+            "quantity": "Unidades",
+            "unit_price": "Precio unitario"
+        }
+>>>>>>> 4a6cf621923c9e85256ff5da92ca02aa233fbc66

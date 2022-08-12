@@ -18,15 +18,38 @@
 {% block body %}
     <div class="container">
         <div class="form-group justify-content-center align-items-center align-content-center align-self-center" style="margin-top: 25px;">
-            <form action="/set_customer" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                    {{ setPersonForm.as_p }}
-                <button type="submit">Seleccionar Cliente</button>
-            </form>
-            {%if customer %}
-                <p>Cedula: {{ customer.id }}</p>
-                <p>Nombre: {{ customer.name }}</p>
-            {%endif%}
+            <div style="background: blue">
+                <form action="/set_customer" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ setPersonForm.as_p }}
+                    <button type="submit">Seleccionar Cliente</button>
+                </form>
+                {%if customer %}
+                    <p>Cedula: {{ customer.id }}</p>
+                    <p>Nombre: {{ customer.name }}</p>
+                {%endif%}
+                <form action="/search_product" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ searchProductForm.as_p }}
+                    <button type="submit">Buscar Producto</button>
+                </form>
+                <form action="/add_sale_detail" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ newSaleDetailForm.as_p }}
+                    <button type="submit">Adicionar Producto</button>
+                </form>
+                
+                <h1>Productos</h1>
+                {%if saleDetails %}
+                {% for saleDetail in saleDetails %}
+                    Nombre: {{ saleDetail.product.name }}, Precio unitario: {{ saleDetail.unit_price }}, Cantidad: {{ saleDetail.quantity }}, Subtotal: {{ saleDetail.total }}
+                    <br>
+                {% endfor %}
+                {%else%}
+                    <p>No se ha adicionado ningún producto al momento</p>
+                {%endif%}
+                <button onclick="location.href='/finish_bill'">Finalizar Factura</button>
+            </div>
         </div>
     </div>
 {% endblock %}

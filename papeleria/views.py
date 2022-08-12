@@ -13,7 +13,7 @@ import json
 import datetime
 
 from .models import Bill, Category, Customer, Person, Product, SaleDetail, User
-from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewUserForm, SetPersonForm
+from .forms import NewCustomerForm, NewPersonForm, NewProductForm, NewSaleDetailForm, NewUserForm, SearchProductForm, SetPersonForm
 
 @csrf_exempt
 @login_required
@@ -78,6 +78,10 @@ def add_admin_view(request):
 @login_required
 def add_bill_view(request):
     bill = Bill.objects.all().filter(seller=request.user, paid=False)
+    newProduct = None
+    newSaleDetailForm = NewSaleDetailForm()
+    searchProductForm = SearchProductForm()
+    setPersonForm = SetPersonForm()
 
     if bill:
         bill = bill[0]
@@ -91,9 +95,14 @@ def add_bill_view(request):
         bill.save()
         customer = None
 
+    saleDetails = SaleDetail.objects.all().filter(bill=bill)
+
     return render(request, "bill/add.html", {
         "bill": bill,
         "customer": bill.customer,
+        "newSaleDetailForm": newSaleDetailForm,
+        "saleDetails": saleDetails,
+        "searchProductForm": searchProductForm,
         "setPersonForm": SetPersonForm()
     })
 
@@ -182,6 +191,48 @@ def add_product(request):
 def add_product_view(request):
     return render(request, "product/add.html", {
         "newProductForm": NewProductForm()
+    })
+
+@csrf_exempt
+@login_required
+def add_sale_detail(request):
+    bill = None
+    customer = None
+    newProduct = None
+    newSaleDetailForm = NewSaleDetailForm()
+    searchProductForm = SearchProductForm()
+    setPersonForm = SetPersonForm()
+
+    try:
+        bill = Bill.objects.get(seller=request.user, paid=False)
+        customer = bill.customer
+        newSaleDetailForm = NewSaleDetailForm(request.POST)
+        
+        if newSaleDetailForm.is_valid():
+            total = newSaleDetailForm.cleaned_data['quantity'] * newSaleDetailForm.cleaned_data['unit_price']
+            newSaleDetail = SaleDetail(
+                product=newSaleDetailForm.cleaned_data['product'],
+                bill=bill,
+                quantity=newSaleDetailForm.cleaned_data['quantity'],
+                unit_price=newSaleDetailForm.cleaned_data['unit_price'],
+                total=total
+            )
+            newSaleDetail.save()
+            newSaleDetailForm = NewSaleDetailForm()
+        else:
+            messages.info(request, 'Datos no válidos. No se adiciono el producto')
+    except Exception as e:
+        messages.error(request, 'Se produjo un error. No se adiciono el producto')
+    
+    saleDetails = SaleDetail.objects.all().filter(bill=bill)
+
+    return render(request, "bill/add.html", {
+        "bill": bill,
+        "customer": customer,
+        "newSaleDetailForm": newSaleDetailForm,
+        "saleDetails": saleDetails,
+        "searchProductForm": searchProductForm,
+        "setPersonForm": setPersonForm
     })
 
 @csrf_exempt
@@ -641,10 +692,71 @@ def register(request):
 
 @csrf_exempt
 @login_required
+def finish_bill(request):
+    try:
+        bill = Bill.objects.get(seller=request.user, paid=False)
+        bill.paid = True
+        bill.save()
+        messages.success(request, 'Se finalizó la factura exitosamente')
+    except Exception as e:
+        messages.error(request, 'Se produjo un error. No se finalizó la factura')
+
+    return HttpResponseRedirect(reverse("add-bill-view"))
+
+@csrf_exempt
+@login_required
+def search_product(request):
+    bill = None
+    customer = None
+    newProduct = None
+    newSaleDetailForm = NewSaleDetailForm()
+    searchProductForm = SearchProductForm()
+    setPersonForm = SetPersonForm()
+
+    try:
+        bill = Bill.objects.get(seller=request.user, paid=False)
+        customer = bill.customer
+        searchProductForm = SearchProductForm(request.POST)
+        
+        if searchProductForm.is_valid():
+            newProductReference = request.POST["reference"]
+            newProduct = Product.objects.all().filter(reference=newProductReference)
+
+            if newProduct:
+                newProduct = newProduct[0]
+                newSaleDetailForm = NewSaleDetailForm(initial={
+                    'product': newProduct,
+                    'unit_price': newProduct.sale_price,
+                    'quantity': 0
+                })
+            else:
+                messages.info(request, 'No se encontro el producto')
+        else:
+            messages.info(request, 'ID no valida. No se encontro el producto')
+    except Exception as e:
+        messages.error(request, 'Se produjo un error. No se encontro el producto')
+    
+    saleDetails = SaleDetail.objects.all().filter(bill=bill)
+
+    return render(request, "bill/add.html", {
+        "bill": bill,
+        "customer": customer,
+        "newSaleDetailForm": newSaleDetailForm,
+        "saleDetails": saleDetails,
+        "searchProductForm": searchProductForm,
+        "setPersonForm": setPersonForm
+    })
+
+@csrf_exempt
+@login_required
 def set_customer(request):
     bill = None
     customer = None
+    newProduct = None
+    newSaleDetailForm = NewSaleDetailForm()
+    searchProductForm = SearchProductForm()
     setPersonForm = SetPersonForm()
+
     try:
         bill = Bill.objects.get(seller=request.user, paid=False)
         customer = bill.customer
@@ -672,9 +784,14 @@ def set_customer(request):
             messages.info(request, 'ID no valida. No se encontro el cliente')
     except Exception as e:
         messages.error(request, 'Se produjo un error. No se encontro el cliente')
+
+    saleDetails = SaleDetail.objects.all().filter(bill=bill)
     
     return render(request, "bill/add.html", {
         "bill": bill,
         "customer": customer,
+        "newSaleDetailForm": newSaleDetailForm,
+        "saleDetails": saleDetails,
+        "searchProductForm": searchProductForm,
         "setPersonForm": setPersonForm
     })
