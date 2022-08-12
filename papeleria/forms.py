@@ -1,7 +1,15 @@
+from tkinter import Widget
 from django import forms
 from .models import Category, Customer, Person, Product, User
 
 class NewProductForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['placeholder'] = form.label
+            form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
+
     class Meta:
         model = Product
         fields = ('reference', 'category', 'name', 'stock', 'brand', 'purchase_price', 'sale_price', 'description')
@@ -17,16 +25,34 @@ class NewProductForm(forms.ModelForm):
         }
 
 class NewUserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['placeholder'] = form.label
+            form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
+
     class Meta:
         model = User
         fields = ('username', 'password')
         labels = {
             "username": "Nombre usuario",
-            "password": "Clave"
-            
+            "password": "Contraseña" 
         }
+        widgets = {
+            'username': forms.TextInput(attrs={'pattern': '[a-zA-Z0-9]+', 'title': 'Solo se permiten letras y números'}),
+            'password': forms.PasswordInput()
+               }
+
 
 class NewPersonForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['placeholder'] = form.label
+            form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
+              
     class Meta:
         model = Person
         fields = ('id', 'name', 'surname', 'email', 'phone', 'birthday')
@@ -34,12 +60,22 @@ class NewPersonForm(forms.ModelForm):
             "id":  "Cedula",
             "name": "Nombres",
             "surname": "Apellidos",
-            "email": "Correo",
+            "email": "Correo electrónico",
             "phone": "Teléfono",
             "birthday": "Fecha nacimiento"
         }
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date','format':'%d/%m/%Y'})
+               }
 
 class NewCustomerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['placeholder'] = form.label
+            form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
+        
     class Meta:
         model = Customer
         fields = ('id', 'name', 'phone', 'email')
@@ -47,8 +83,17 @@ class NewCustomerForm(forms.ModelForm):
             "id":  "Cedula o Nit",
             "name": "Nombre",
             "phone": "Teléfono",
-            "email": "Correo"
+            "email": "Correo electrónico"
         }
+       
 
 class SetPersonForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+            form.field.widget.attrs['placeholder'] = form.label
+            form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
+
     id = forms.IntegerField(required=False)
+

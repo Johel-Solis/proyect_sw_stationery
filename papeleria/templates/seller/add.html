@@ -28,128 +28,57 @@
                                 <h1 class="text-left" style="font-weight: bold;font-family: Merriweather, serif;">Adicionar Vendedor</h1>
                             </div>
                         </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-content-center align-self-center align-items-sm-center" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                            {% if newPersonForm.id.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show" style="margin-bottom: 0px; " role="alert">
-                                    <strong>El vendedor con esta cedula ya existe.</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            {% endif %}
-                           
-                                <p style="margin-left: 2%;margin-top: 0px;font-size: 24px;" class="ml-0 mb-0"><strong>Cedula:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="number" class="form-control is-invalid" id="id" style="margin-left: 0px;width: 100%;" name="id" value="{{ newPersonForm.id.value }}" placeholder="Cedula" required="" maxlength="255">
-                                {% else %}
-                                    <input type="number" class="form-control" id="id" style="margin-left: 0px;width: 100%;" name="id" placeholder="Cedula" required="" maxlength="255">
-                                {% endif %}
+          
+                            {%for field in newPersonForm.visible_fields %}
 
-                            </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Nombres:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="text" class="form-control " style="margin-left: 0px;width: 100%;" name="name" value="{{ newPersonForm.name.value }}" placeholder="Nombres" required="" maxlength="255">
-                                {% else %}
-                                    <input type="text" class="form-control" style="margin-left: 0px;width: 100%;" name="name" placeholder="Nombres" required="" maxlength="255">
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Apellidos:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="text" class="form-control " style="margin-left: 0px;width: 100%;" name="surname" value="{{ newPersonForm.surname.value }}" placeholder="Apellidos" required="" maxlength="255">
-                                {% else %}
-                                    <input type="text" class="form-control" style="margin-left: 0px;width: 100%;" name="surname" placeholder="Apellidos" required="" maxlength="255">
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Correo electrónico:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="email" class="form-control " style="margin-left: 0px;width: 100%;" name="email" value="{{ newPersonForm.email.value }}" placeholder="Correo electrónico" >
-                                {% else %}
-                                    <input type="email" class="form-control" style="margin-left: 0px;width: 100%;" name="email" placeholder="Correo electrónico" >
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Teléfono:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="number" class="form-control " style="margin-left: 0px;width: 100%;" name="phone" value="{{ newPersonForm.phone.value }}" placeholder="Teléfono" >
-                                {% else %}
-                                    <input type="number" class="form-control" style="margin-left: 0px;width: 100%;" name="phone" placeholder="Teléfono" >
-                                {% endif %}
+                            <div class="form-row flex-column justify-content-center align-items-center align-content-center align-self-center align-items-sm-center" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                                <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
+                                    {% if field.errors %}
+                                        <div class="alert alert-warning  alert-dismissible fade show" style="margin-bottom: 0px; " role="alert">
+                                            <strong>El vendedor con esta cedula ya existe.</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                
+                                    <p style="margin-left: 2%;margin-top: 0px;font-size: 24px;" class="ml-0 mb-0"><strong>{{field.label}}:</strong></p>
                                 </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Fecha nacimiento:</strong></p>
-                            </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="date" class="form-control " style="margin-left: 0px;width: 100%;" name="birthday" value="{{ newPersonForm.birthday.value }}" placeholder="Fecha nacimiento" >
-                                {% else %}
-                                    <input type="date" class="form-control" style="margin-left: 0px;width: 100%;" name="birthday" placeholder="Fecha nacimiento" >
-                                {% endif %}
+                                <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
+                                   {{field}}
+    
                                 </div>
-                        </div>
-                        <div class="form-row justify-content-center align-items-center" style="margin-right: 0px;margin-left: 0px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                {% if newUserForm.username.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>El nombre usuario  ya existe.</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            </div>
+                            {% endfor %}
+                            {%for us in newUserForm.visible_fields %}
+                            <div class="form-row flex-column justify-content-center align-items-center align-content-center align-self-center align-items-sm-center" style="margin-right: 0px;margin-left: 0px;padding-top: 24px;">
+                                <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
+                                    {% if us.errors %}
+                                    <div class="alert alert-warning alert-dismissible fade show" style="margin-bottom: 0px; " role="alert">
+                                        <strong>El nombre usuario  ya existe.</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {% endif %}
+                                    <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>{{us.label}}:</strong></p>
                                 </div>
-                                {% endif %}
-                                <p style="margin-left: 2%;font-size: 24px;margin-top: 0px;" class="ml-0 mb-0"><strong>Nombre usuario:</strong></p>
+                                <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
+                                    {{us}}
+                                    </div>
                             </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="text" class="form-control is-invalid" style="margin-left: 0px;width: 100%;" name="username" id="username" value="{{ newUserForm.username.value }}" placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+">
-                                {% else %}
-                                    <input type="text" class="form-control" style="margin-left: 0px;width: 100%;" name="username" id="username"  placeholder="Nombre usuario" required="" maxlength="155" pattern="[A-Za-z0-9]+">
-                                {% endif %}
+                            {% endfor %}
+    
+                            
+                            <div class="form-row justify-content-center align-items-center">
+                                <div class="col-md-8 col-xl-8 offset-md-1 text-right align-self-center" style="margin-left: 0px;margin-top: 20px;">
+                                    <button class="btn btn-light btn-lg" style="margin-left: 6px;font-family: Merriweather, serif;" type="submit">Adicionar</button>
+                                    
+                                    <button class="btn btn-light btn-lg" type="reset" style="margin-left: 6px;font-family: Merriweather, serif;" onclick="return confirm('¿Esta seguro?')">Limpiar</button>
+                                    <a class="btn btn-light btn-lg" href="{% url 'index' %}" style="font-family: Merriweather, serif;" type="cancel">cancelar</a>
+                                    
                                 </div>
-                        </div>
-                        <div class="form-row flex-column justify-content-center align-items-center align-self-center" style="margin-right: 0px;margin-left: 0px;margin-top: -1px;padding-top: 0px;">
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 1px;">
-                                <p style="margin-left: 2%;font-size: 24px;margin-bottom: -1px;" class="ml-0"><strong>Contraseña:</strong></p>
                             </div>
-                            <div class="col-md-8 col-xl-8 offset-md-1" style="margin-left: 0px;">
-                                {% if newPersonForm.id.errors or newUserForm.username.errors%}
-                                    <input type="password" class="form-control " style="margin-left: 0px;width: 100%;" name="password" id="password" value="{{ newUserForm.password.value }}" placeholder="Contraseña" required="" maxlength="128">
-                                {% else %}
-                                    <input type="password" class="form-control" style="margin-left: 0px;width: 100%;" name="password" id="password"  placeholder="Contraseña" required="" maxlength="128" >
-                                {% endif %}
-                            </div>
-                        </div>
-                        
-                        <div class="form-row justify-content-center align-items-center">
-                            <div class="col-md-8 col-xl-8 offset-md-1 text-right align-self-center" style="margin-left: 0px;margin-top: 20px;">
-                                <a class="btn btn-light btn-lg" href="{% url 'index' %}" style="font-family: Merriweather, serif;" type="cancel">cancelar</a>
-                                <button class="btn btn-light btn-lg" type="submit" style="margin-left: 6px;font-family: Merriweather, serif;" type="reset">Limpiar</button>
-                                <button class="btn btn-light btn-lg" style="margin-left: 6px;font-family: Merriweather, serif;" type="submit">Adicionar</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </form>
