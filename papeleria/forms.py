@@ -91,18 +91,20 @@ class SearchProductForm(forms.Form):
     reference = forms.IntegerField()
 
 class SetPersonForm(forms.Form):
-<<<<<<< HEAD
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form-control'
             form.field.widget.attrs['placeholder'] = form.label
             form.field.widget.attrs['style'] = 'margin-left: 0px;width: 100%;'
-
+    class Meta:
+        labels = {
+            "id":  "Cedula",
+        }
+         
     id = forms.IntegerField(required=False)
 
-=======
-    id = forms.IntegerField(required=False)
 
 class NewSaleDetailForm(forms.ModelForm):
     class Meta:
@@ -113,4 +115,3 @@ class NewSaleDetailForm(forms.ModelForm):
             "quantity": "Unidades",
             "unit_price": "Precio unitario"
         }
->>>>>>> 4a6cf621923c9e85256ff5da92ca02aa233fbc66

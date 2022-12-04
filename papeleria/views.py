@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core import serializers
 import json
 import datetime
 
@@ -77,6 +78,7 @@ def add_admin_view(request):
 @csrf_exempt
 @login_required
 def add_bill_view(request):
+    '''
     bill = Bill.objects.all().filter(seller=request.user, paid=False)
     newProduct = None
     newSaleDetailForm = NewSaleDetailForm()
@@ -96,13 +98,14 @@ def add_bill_view(request):
         customer = None
 
     saleDetails = SaleDetail.objects.all().filter(bill=bill)
+    '''
 
     return render(request, "bill/add.html", {
-        "bill": bill,
-        "customer": bill.customer,
-        "newSaleDetailForm": newSaleDetailForm,
-        "saleDetails": saleDetails,
-        "searchProductForm": searchProductForm,
+        #"bill": bill,
+        #"customer": bill.customer,
+        "newSaleDetailForm": NewSaleDetailForm(),
+        #"saleDetails": saleDetails,
+        "searchProductForm": SearchProductForm(),
         "setPersonForm": SetPersonForm()
     })
 
@@ -706,36 +709,40 @@ def finish_bill(request):
 @csrf_exempt
 @login_required
 def search_product(request):
-    bill = None
-    customer = None
-    newProduct = None
-    newSaleDetailForm = NewSaleDetailForm()
+    #bill = None
+    #customer = None
+    #newProduct = None
+    #newSaleDetailForm = NewSaleDetailForm()
     searchProductForm = SearchProductForm()
-    setPersonForm = SetPersonForm()
+    #setPersonForm = SetPersonForm()
 
     try:
-        bill = Bill.objects.get(seller=request.user, paid=False)
-        customer = bill.customer
+       # bill = Bill.objects.get(seller=request.user, paid=False)
+        #customer = bill.customer
         searchProductForm = SearchProductForm(request.POST)
         
         if searchProductForm.is_valid():
             newProductReference = request.POST["reference"]
-            newProduct = Product.objects.all().filter(reference=newProductReference)
+            newProduct = Product.objects.get(reference=newProductReference)
 
             if newProduct:
-                newProduct = newProduct[0]
+                #newProduct = newProduct[0]
+                '''
                 newSaleDetailForm = NewSaleDetailForm(initial={
                     'product': newProduct,
                     'unit_price': newProduct.sale_price,
                     'quantity': 0
                 })
+                '''
+                produ= {'reference': newProduct.reference, 'name': newProduct.name,'price': newProduct.sale_price ,'stock': newProduct.stock}
+                return JsonResponse({"producto": produ}, status=200)
             else:
                 messages.info(request, 'No se encontro el producto')
         else:
             messages.info(request, 'ID no valida. No se encontro el producto')
     except Exception as e:
         messages.error(request, 'Se produjo un error. No se encontro el producto')
-    
+    '''
     saleDetails = SaleDetail.objects.all().filter(bill=bill)
 
     return render(request, "bill/add.html", {
@@ -746,52 +753,70 @@ def search_product(request):
         "searchProductForm": searchProductForm,
         "setPersonForm": setPersonForm
     })
+    '''
+    return JsonResponse({"error": searchProductForm.errors}, status=400)
+
 
 @csrf_exempt
 @login_required
 def set_customer(request):
-    bill = None
-    customer = None
-    newProduct = None
-    newSaleDetailForm = NewSaleDetailForm()
-    searchProductForm = SearchProductForm()
-    setPersonForm = SetPersonForm()
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
-    try:
-        bill = Bill.objects.get(seller=request.user, paid=False)
-        customer = bill.customer
-        setPersonForm = SetPersonForm(request.POST)
-        
-        if setPersonForm.is_valid():
-            newCustomerId = request.POST["id"]
+    if  is_ajax and request.method == "POST":
+        #bill = None
+        #customer = None
+        #newProduct = None
+        #newSaleDetailForm = NewSaleDetailForm()
+        #searchProductForm = SearchProductForm()
+        setPersonForm = SetPersonForm()
 
-            if newCustomerId == "":
-                bill.customer = None
-                bill.save()
-                customer = bill.customer
-                setPersonForm = SetPersonForm()
-            else:
-                newCustomer = Customer.objects.all().filter(id=newCustomerId)
+        try:
+            #bill = Bill.objects.get(seller=request.user, paid=False)
+            #customer = bill.customer
+            setPersonForm = SetPersonForm(request.POST)
+            
+            if setPersonForm.is_valid():
+                newCustomerId = request.POST["id"]
 
-                if newCustomer:
-                    bill.customer = newCustomer[0]
-                    bill.save()
-                    customer = bill.customer
-                    setPersonForm = SetPersonForm()
+                if newCustomerId == "":
+                    #bill.customer = None
+                    #bill.save()
+                    #customer = bill.customer
+                    #setPersonForm = SetPersonForm()
+                    print("No hay cliente")
+                    return JsonResponse({"error": "Id invalido"}, status=400)
                 else:
-                    messages.info(request, 'No se encontro el cliente')
-        else:
-            messages.info(request, 'ID no valida. No se encontro el cliente')
-    except Exception as e:
-        messages.error(request, 'Se produjo un error. No se encontro el cliente')
+                    newCustomer = Customer.objects.get(id=newCustomerId)
 
-    saleDetails = SaleDetail.objects.all().filter(bill=bill)
-    
-    return render(request, "bill/add.html", {
-        "bill": bill,
-        "customer": customer,
-        "newSaleDetailForm": newSaleDetailForm,
-        "saleDetails": saleDetails,
-        "searchProductForm": searchProductForm,
-        "setPersonForm": setPersonForm
-    })
+                    if newCustomer:
+                        #bill.customer = newCustomer[0]
+                        #bill.save()
+                        #customer = bill.customer
+                        #setPersonForm = SetPersonForm()
+                        cust= {'id': newCustomer.id, 'name': newCustomer.name}
+                        print( cust)
+                        #ser_instance = serializers.serialize('json', [ cust,])
+                        #print(ser_instance)
+                        return JsonResponse({"customer": cust}, status=200)
+                    else:
+                        #messages.info(request, 'No se encontro el cliente')
+                        print("No se encontro el cliente")
+                        return JsonResponse({"error": 'No se encotro el cliente'}, status=400)
+            else:
+                #messages.info(request, 'ID no valida. No se encontro el cliente')
+                return JsonResponse({"error": setPersonForm.errors}, status=400)
+        except Exception as e:
+            #messages.error(request, 'Se produjo un error. No se encontro el cliente')
+            return JsonResponse({"error": setPersonForm.errors}, status=400)
+
+        #saleDetails = SaleDetail.objects.all().filter(bill=bill)
+        '''
+        return render(request, "bill/add.html", {
+            "bill": bill,
+            "customer": customer,
+            "newSaleDetailForm": newSaleDetailForm,
+            "saleDetails": saleDetails,
+            "searchProductForm": searchProductForm,
+            "setPersonForm": setPersonForm
+        })
+        '''
